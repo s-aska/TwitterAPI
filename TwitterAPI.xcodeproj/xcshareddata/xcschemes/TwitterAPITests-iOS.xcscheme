@@ -16,9 +16,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-               BuildableName = "TwitterAPI-MacTests.xctest"
-               BlueprintName = "TwitterAPI-MacTests"
+               BlueprintIdentifier = "6AAEF2481BAC9E4E0095A4F9"
+               BuildableName = "TwitterAPI-iOSTests.xctest"
+               BlueprintName = "TwitterAPI-iOSTests"
                ReferencedContainer = "container:TwitterAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
