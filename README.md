@@ -123,7 +123,8 @@ accountStore.requestAccessToAccountsWithType(accountType, options: nil) {
 
     guard let account = accounts.first else {
         let message = "There are no Twitter accounts configured. You can add or create a Twitter account in Settings."
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Error", message: message,
+            preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         self.presentViewController(alert, animated: true, completion: nil)
         return
@@ -154,18 +155,20 @@ let oauthswift = OAuth1Swift(
     authorizeUrl:    "https://api.twitter.com/oauth/authorize",
     accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
 )
-oauthswift.authorizeWithCallbackURL(NSURL(string: "yourappscheme://success")!, success: { (credential, response) -> Void in
-    let client = TwitterAPI.client(
-        consumerKey: "YOUR_APP_CONSUMER_KEY",
-        consumerSecret: "YOUR_APP_CONSUMER_SECRET",
-        accessToken: credential.oauth_token,
-        accessTokenSecret: credential.oauth_token_secret)
-}) { (error) -> Void in
-    let message = error.description
-    let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
-    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-    self.presentViewController(alert, animated: true, completion: nil)
-}
+oauthswift.authorizeWithCallbackURL(NSURL(string: "yourappscheme://success")!,
+    success: { (credential, response) -> Void in
+        let client = TwitterAPI.client(
+            consumerKey: "YOUR_APP_CONSUMER_KEY",
+            consumerSecret: "YOUR_APP_CONSUMER_SECRET",
+            accessToken: credential.oauth_token,
+            accessTokenSecret: credential.oauth_token_secret)
+    }) { (error) -> Void in
+        let message = error.description
+        let alert = UIAlertController(title: "Error", message: message,
+            preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
 
 // AppDelegate.swift
 
@@ -174,7 +177,8 @@ import OAuthSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL,
+        sourceApplication: String?, annotation: AnyObject) -> Bool {
         if url.absoluteString.hasPrefix("yourappscheme://success") {
             OAuth1Swift.handleOpenURL(url)
         }
