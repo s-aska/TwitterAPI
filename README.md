@@ -69,17 +69,16 @@ client.post(url, parameters: parameters).send() {
 ### by OAuth
 
 ```swift
-import OAuthSwift
 import TwitterAPI
 
 let client = TwitterAPI.client(
     consumerKey: "",
     consumerSecret: "",
-    accessToken: credential.oauth_token,
-    accessTokenSecret: credential.oauth_token_secret)
+    accessToken: "",
+    accessTokenSecret: "")
 ```
 
-### by ACAccount (Social.framework)
+### by Social.framework
 
 ```swift
 import Accounts
@@ -87,7 +86,6 @@ import TwitterAPI
 
 let client = TwitterAPI.client(account: account)
 ```
-
 
 ### Serialize / Deserialize
 
@@ -137,6 +135,51 @@ accountStore.requestAccessToAccountsWithType(accountType, options: nil) {
     client.get(url, parameters: parameters).send() {
         (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
 
+    }
+}
+```
+
+
+## How to use OAuthSwift
+
+```swift
+import OAuthSwift
+import TwitterAPI
+
+
+let oauthswift = OAuth1Swift(
+    consumerKey:    "YOUR_APP_CONSUMER_KEY",
+    consumerSecret: "YOUR_APP_CONSUMER_SECRET",
+    requestTokenUrl: "https://api.twitter.com/oauth/request_token",
+    authorizeUrl:    "https://api.twitter.com/oauth/authorize",
+    accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
+)
+oauthswift.authorizeWithCallbackURL(NSURL(string: "yourappscheme://success")!, success: { (credential, response) -> Void in
+    let client = TwitterAPI.client(
+        consumerKey: "YOUR_APP_CONSUMER_KEY",
+        consumerSecret: "YOUR_APP_CONSUMER_SECRET",
+        accessToken: credential.oauth_token,
+        accessTokenSecret: credential.oauth_token_secret)
+}) { (error) -> Void in
+    let message = error.description
+    let alert = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+    self.presentViewController(alert, animated: true, completion: nil)
+}
+
+// AppDelegate.swift
+
+import UIKit
+import OAuthSwift
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        if url.absoluteString.hasPrefix("yourappscheme://success") {
+            OAuth1Swift.handleOpenURL(url)
+        }
+
+        return true
     }
 }
 ```

@@ -68,7 +68,7 @@ class ViewController: UIViewController {
             accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
         )
         oauthswift.authorizeWithCallbackURL(NSURL(string: "justaway://success")!, success: { (credential, response) -> Void in
-            let client: TwitterAPIClient = TwitterAPI.client(
+            let client = TwitterAPI.client(
                 consumerKey: "",
                 consumerSecret: "",
                 accessToken: credential.oauth_token,
