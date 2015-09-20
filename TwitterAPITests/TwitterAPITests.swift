@@ -9,6 +9,14 @@
 import XCTest
 @testable import TwitterAPI
 
+#if os(iOS)
+    import OAuthSwift
+    import Accounts
+    import Social
+#else
+    import OAuthSwiftOSX
+#endif
+
 class TwitterAPITests: XCTestCase {
     
     override func setUp() {
@@ -21,12 +29,48 @@ class TwitterAPITests: XCTestCase {
         super.tearDown()
     }
     
-    func testSerialize() {
+    func testSerializeOAuth() {
         let client = TwitterAPI.client(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
         XCTAssertEqual(client.serialize, "OAuth\thoge\tfoo\tbar\tbaz", "client.serialize")
         
         let clientCopy = TwitterAPI.client(serializedString: client.serialize)
         XCTAssertEqual(clientCopy.serialize, "OAuth\thoge\tfoo\tbar\tbaz", "client.serialize")
+    }
+    
+    func testGET() {
+        let client = TwitterAPI.client(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
+        let request = client.get(NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")!)
+        XCTAssertEqual(request.request.URL?.absoluteString, "https://api.twitter.com/1.1/statuses/home_timeline.json")
+        XCTAssertEqual(request.request.HTTPMethod, "GET")
+    }
+    
+    func testPOST() {
+        let client = TwitterAPI.client(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
+        let request = client.post(NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")!)
+        XCTAssertEqual(request.request.HTTPMethod, "POST")
+    }
+    
+    func testStreaming() {
+        let client = TwitterAPI.client(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
+        let request = client.streaming(NSURL(string: "https://userstream.twitter.com/1.1/user.json")!)
+        XCTAssertEqual(request.request.URL?.absoluteString, "https://userstream.twitter.com/1.1/user.json")
+        XCTAssertEqual(request.request.HTTPMethod, "GET")
+    }
+    
+    func testGETWithParameters() {
+        let client = TwitterAPI.client(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
+        let request = client.get(NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json")!, parameters: ["count": "200"])
+        XCTAssertEqual(request.request.URL?.absoluteString, "https://api.twitter.com/1.1/statuses/home_timeline.json?count=200")
+        XCTAssertEqual(request.request.URL?.query, "count=200")
+        XCTAssertEqual(request.request.HTTPMethod, "GET")
+    }
+    
+    func testPOSTWithParameters() {
+        let client = TwitterAPI.client(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
+        let request = client.post(NSURL(string: "https://api.twitter.com/1.1/statuses/update.json")!, parameters: ["status": "test"])
+        XCTAssertEqual(request.request.URL?.absoluteString, "https://api.twitter.com/1.1/statuses/update.json")
+        XCTAssertEqual(NSString(data: request.request.HTTPBody!, encoding: NSUTF8StringEncoding), "status=test")
+        XCTAssertEqual(request.request.HTTPMethod, "POST")
     }
     
     func testPerformanceExample() {

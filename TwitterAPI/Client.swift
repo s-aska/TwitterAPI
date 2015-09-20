@@ -25,18 +25,55 @@ public protocol TwitterAPIClient {
 
 public extension TwitterAPIClient {
     
+    /**
+    Create a StreamingRequest Instance.
+    
+    :param: url Streaming API Resource URL. (e.g., https://userstream.twitter.com/1.1/user.json)
+    :param: parameters Streaming API Request Parameters (See https://dev.twitter.com/streaming/overview)
+    
+    :returns: StreamingRequest
+    */
     public func streaming(url: NSURL, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
         return StreamingRequest(request("GET", url: url, parameters: parameters))
     }
     
+    /**
+    Create a RESTRequest Instance to use to GET Method API.
+    
+    :param: url REST API Resource URL. (e.g., https://api.twitter.com/1.1/statuses/home_timeline.json)
+    :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
+    
+    :returns: RESTRequest
+    */
     public func get(url: NSURL, parameters: Dictionary<String, String> = [:]) -> RESTRequest {
         return RESTRequest(request("GET", url: url, parameters: parameters))
     }
     
+    /**
+    Create a RESTRequest Instance to use to POST Method API.
+    
+    :param: url REST API Resource URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
+    :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
+    
+    :returns: RESTRequest
+    */
     public func post(url: NSURL, parameters: Dictionary<String, String> = [:]) -> RESTRequest {
         return RESTRequest(request("POST", url: url, parameters: parameters))
     }
     
+    /**
+    Create a RESTRequest Instance.
+    
+    Media uploads for images are limited to 5MB in file size.
+    
+    MIME-types supported by this endpoint: PNG, JPEG, BMP, WEBP, GIF, Animated GIF
+    
+    See: https://dev.twitter.com/rest/reference/post/media/upload
+    
+    :param: data The raw binary file content being uploaded.
+    
+    :returns: RESTRequest
+    */
     public func postMedia(data: NSData) -> RESTRequest {
         let media = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
         let url = NSURL(string: "https://upload.twitter.com/1.1/media/upload.json")!

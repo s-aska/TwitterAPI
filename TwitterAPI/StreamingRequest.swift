@@ -21,10 +21,20 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     private var progress: TwitterAPI.ProgressHandler?
     private var completion: TwitterAPI.CompletionHandler?
     
+    /**
+    Create a StreamingRequest Instance
+    
+    :param: request NSURLRequest
+    */
     public init(_ request: NSURLRequest) {
         self.request = request
     }
     
+    /**
+    Connect streaming.
+    
+    :returns: self
+    */
     public func start() -> StreamingRequest {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -33,15 +43,41 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
         return self
     }
     
+    /**
+    Disconnect streaming.
+    */
     public func stop() {
         task?.cancel()
     }
     
+    /**
+    Set progress hander.
+    
+    It will be called for each new line.
+    
+    See: https://dev.twitter.com/streaming/overview/processing
+    
+    :param: progress (data: NSData) -> Void
+    
+    :returns: self
+    */
     public func progress(progress: TwitterAPI.ProgressHandler) -> StreamingRequest {
         self.progress = progress
         return self
     }
     
+    /**
+    Set completion hander.
+    
+    It will be called when an error is received.
+    
+    - URLSession:dataTask:didReceiveResponse:completionHandler: (if statusCode is not 200)
+    - URLSession:task:didCompleteWithError:
+    
+    :param: completion (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void
+    
+    :returns: self
+    */
     public func completion(completion: TwitterAPI.CompletionHandler) -> StreamingRequest {
         self.completion = completion
         return self

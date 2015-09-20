@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if url.absoluteString.hasPrefix("justaway://success") {
+        if url.absoluteString.hasPrefix("yourappscheme://success") {
             OAuth1Swift.handleOpenURL(url)
         }
         

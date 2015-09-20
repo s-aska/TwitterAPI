@@ -12,10 +12,26 @@ public class RESTRequest {
     
     public let request: NSURLRequest
     
+    /**
+    Create a RESTRequest Instance
+    
+    :param: request NSURLRequest
+    */
     init(_ request: NSURLRequest) {
         self.request = request
     }
     
+    /**
+    Set progress hander.
+    
+    It will be called for each new line.
+    
+    See: https://dev.twitter.com/streaming/overview/processing
+    
+    :param: progress (data: NSData) -> Void
+    
+    :returns: NSURLSessionDataTask
+    */
     public func send(completion: TwitterAPI.CompletionHandler? = nil) -> NSURLSessionDataTask {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         let session = NSURLSession(configuration: configuration, delegate: nil, delegateQueue: nil)
