@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.10"
   s.requires_arc = true
 
-  s.dependency = 'OAuthSwift'
-  s.dependency = 'MutableDataScanner'
+  s.dependency 'OAuthSwift'
+  s.dependency 'MutableDataScanner'
 
   s.source_files = 'TwitterAPI/*.swift'
 end
