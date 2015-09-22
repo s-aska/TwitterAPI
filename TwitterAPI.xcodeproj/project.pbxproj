@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38F2C5681BB1702D00516144 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; };
+		38F2C56A1BB1702F00516144 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; };
+		38F2C56B1BB172C200516144 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		38F2C56C1BB1730100516144 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2431BAC9E4E0095A4F9 /* TwitterAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAEF2421BAC9E4E0095A4F9 /* TwitterAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAEF24A1BAC9E4E0095A4F9 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */; settings = {ASSET_TAGS = (); }; };
 		6AAEF24F1BAC9E4E0095A4F9 /* TwitterAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF24E1BAC9E4E0095A4F9 /* TwitterAPITests.swift */; };
@@ -31,14 +35,9 @@
 		6AAEF2A91BACAB700095A4F9 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; };
 		6AAEF2AA1BACAB780095A4F9 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; settings = {ASSET_TAGS = (); }; };
 		6AAEF2AB1BACAB820095A4F9 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6AAEF2AF1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2AE1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework */; };
 		6AAEF2B31BACAF2C0095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2B41BACAF3D0095A4F9 /* OAuthSwiftOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2AE1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2B51BACAF910095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ASSET_TAGS = (); }; };
 		6AAEF2B71BACB15D0095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6AAEF2B81BACB15D0095A4F9 /* OAuthSwiftOSX.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2AE1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2BB1BACB3E20095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6AAEF2BC1BACB3EE0095A4F9 /* OAuthSwiftOSX.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2AE1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2BE1BACB4280095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */; };
 		6AAEF2BF1BACB43C0095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2C71BACB97A0095A4F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2C61BACB97A0095A4F9 /* AppDelegate.swift */; };
@@ -96,8 +95,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				38F2C56B1BB172C200516144 /* OAuthSwift.framework in CopyFiles */,
 				6AAEF2B71BACB15D0095A4F9 /* MutableDataScanner.framework in CopyFiles */,
-				6AAEF2B81BACB15D0095A4F9 /* OAuthSwiftOSX.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6AAEF2BC1BACB3EE0095A4F9 /* OAuthSwiftOSX.framework in CopyFiles */,
+				38F2C56C1BB1730100516144 /* OAuthSwift.framework in CopyFiles */,
 				6AAEF2BB1BACB3E20095A4F9 /* MutableDataScanner.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		38F2C5691BB1702F00516144 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/Mac/OAuthSwift.framework; sourceTree = "<group>"; };
 		6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TwitterAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAEF2421BAC9E4E0095A4F9 /* TwitterAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwitterAPI.h; sourceTree = "<group>"; };
 		6AAEF2441BAC9E4E0095A4F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,7 +128,6 @@
 		6AAEF2861BACA03B0095A4F9 /* RESTRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTRequest.swift; sourceTree = "<group>"; };
 		6AAEF2881BACA0490095A4F9 /* StreamingRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingRequest.swift; sourceTree = "<group>"; };
 		6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/iOS/OAuthSwift.framework; sourceTree = "<group>"; };
-		6AAEF2AE1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwiftOSX.framework; path = Carthage/Build/Mac/OAuthSwiftOSX.framework; sourceTree = "<group>"; };
 		6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MutableDataScanner.framework; path = Carthage/Build/Mac/MutableDataScanner.framework; sourceTree = "<group>"; };
 		6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MutableDataScanner.framework; path = Carthage/Build/iOS/MutableDataScanner.framework; sourceTree = "<group>"; };
 		6AAEF2C41BACB97A0095A4F9 /* TwitterAPIiOSDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterAPIiOSDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,8 +168,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AAEF2B51BACAF910095A4F9 /* MutableDataScanner.framework in Frameworks */,
-				6AAEF2AF1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework in Frameworks */,
+				38F2C5681BB1702D00516144 /* MutableDataScanner.framework in Frameworks */,
+				38F2C56A1BB1702F00516144 /* OAuthSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +178,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AAEF2B31BACAF2C0095A4F9 /* MutableDataScanner.framework in Frameworks */,
-				6AAEF2B41BACAF3D0095A4F9 /* OAuthSwiftOSX.framework in Frameworks */,
 				6AAEF2751BAC9F390095A4F9 /* TwitterAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,10 +249,10 @@
 		6AAEF2A01BACA6980095A4F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38F2C5691BB1702F00516144 /* OAuthSwift.framework */,
 				6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */,
 				6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */,
 				6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */,
-				6AAEF2AE1BACAE9B0095A4F9 /* OAuthSwiftOSX.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

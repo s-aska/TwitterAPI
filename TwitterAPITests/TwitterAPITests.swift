@@ -8,13 +8,11 @@
 
 import XCTest
 import TwitterAPI
+import OAuthSwift
 
 #if os(iOS)
-    import OAuthSwift
     import Accounts
     import Social
-#else
-    import OAuthSwiftOSX
 #endif
 
 class TwitterAPITests: XCTestCase {
