@@ -7,13 +7,11 @@
 //
 
 import Foundation
+import OAuthSwift
 
 #if os(iOS)
-    import OAuthSwift
     import Accounts
     import Social
-#else
-    import OAuthSwiftOSX
 #endif
 
 public protocol TwitterAPIClient {

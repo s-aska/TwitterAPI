@@ -7,13 +7,11 @@
 //
 
 import Foundation
+import OAuthSwift
 
 #if os(iOS)
-    import OAuthSwift
     import Accounts
     import Social
-#elseif os(OSX)
-    import OAuthSwiftOSX
 #endif
 
 public class TwitterAPI {
