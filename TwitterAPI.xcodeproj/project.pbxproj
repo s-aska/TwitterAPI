@@ -118,11 +118,11 @@
 		6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TwitterAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAEF2421BAC9E4E0095A4F9 /* TwitterAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwitterAPI.h; sourceTree = "<group>"; };
 		6AAEF2441BAC9E4E0095A4F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6AAEF2491BAC9E4E0095A4F9 /* TwitterAPI-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TwitterAPI-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AAEF2491BAC9E4E0095A4F9 /* TwitterAPI iOS Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TwitterAPI iOS Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAEF24E1BAC9E4E0095A4F9 /* TwitterAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterAPITests.swift; sourceTree = "<group>"; };
 		6AAEF2501BAC9E4E0095A4F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AAEF26B1BAC9F390095A4F9 /* TwitterAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TwitterAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AAEF2741BAC9F390095A4F9 /* TwitterAPI-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TwitterAPI-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AAEF2741BAC9F390095A4F9 /* TwitterAPI Mac Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TwitterAPI Mac Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPI.swift; sourceTree = "<group>"; };
 		6AAEF2841BACA02B0095A4F9 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		6AAEF2861BACA03B0095A4F9 /* RESTRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTRequest.swift; sourceTree = "<group>"; };
@@ -217,9 +217,9 @@
 			isa = PBXGroup;
 			children = (
 				6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */,
-				6AAEF2491BAC9E4E0095A4F9 /* TwitterAPI-iOSTests.xctest */,
+				6AAEF2491BAC9E4E0095A4F9 /* TwitterAPI iOS Tests.xctest */,
 				6AAEF26B1BAC9F390095A4F9 /* TwitterAPI.framework */,
-				6AAEF2741BAC9F390095A4F9 /* TwitterAPI-MacTests.xctest */,
+				6AAEF2741BAC9F390095A4F9 /* TwitterAPI Mac Tests.xctest */,
 				6AAEF2C41BACB97A0095A4F9 /* TwitterAPIiOSDemo.app */,
 				6AAEF2F61BACB9B10095A4F9 /* TwitterAPIOSXDemo.app */,
 			);
@@ -305,9 +305,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		6AAEF23E1BAC9E4E0095A4F9 /* TwitterAPI-iOS */ = {
+		6AAEF23E1BAC9E4E0095A4F9 /* TwitterAPI iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAEF2531BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-iOS" */;
+			buildConfigurationList = 6AAEF2531BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI iOS" */;
 			buildPhases = (
 				6AAEF23A1BAC9E4E0095A4F9 /* Sources */,
 				6AAEF23B1BAC9E4E0095A4F9 /* Frameworks */,
@@ -320,14 +320,14 @@
 			);
 			dependencies = (
 			);
-			name = "TwitterAPI-iOS";
+			name = "TwitterAPI iOS";
 			productName = TwitterAPI;
 			productReference = 6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6AAEF2481BAC9E4E0095A4F9 /* TwitterAPI-iOSTests */ = {
+		6AAEF2481BAC9E4E0095A4F9 /* TwitterAPI iOS Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAEF2561BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-iOSTests" */;
+			buildConfigurationList = 6AAEF2561BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI iOS Tests" */;
 			buildPhases = (
 				6AAEF2451BAC9E4E0095A4F9 /* Sources */,
 				6AAEF2461BAC9E4E0095A4F9 /* Frameworks */,
@@ -339,14 +339,14 @@
 			dependencies = (
 				6AAEF24C1BAC9E4E0095A4F9 /* PBXTargetDependency */,
 			);
-			name = "TwitterAPI-iOSTests";
+			name = "TwitterAPI iOS Tests";
 			productName = TwitterAPITests;
-			productReference = 6AAEF2491BAC9E4E0095A4F9 /* TwitterAPI-iOSTests.xctest */;
+			productReference = 6AAEF2491BAC9E4E0095A4F9 /* TwitterAPI iOS Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6AAEF26A1BAC9F390095A4F9 /* TwitterAPI-Mac */ = {
+		6AAEF26A1BAC9F390095A4F9 /* TwitterAPI Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAEF27C1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-Mac" */;
+			buildConfigurationList = 6AAEF27C1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI Mac" */;
 			buildPhases = (
 				6AAEF2661BAC9F390095A4F9 /* Sources */,
 				6AAEF2671BAC9F390095A4F9 /* Frameworks */,
@@ -358,14 +358,14 @@
 			);
 			dependencies = (
 			);
-			name = "TwitterAPI-Mac";
+			name = "TwitterAPI Mac";
 			productName = TwitterAPI;
 			productReference = 6AAEF26B1BAC9F390095A4F9 /* TwitterAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6AAEF2731BAC9F390095A4F9 /* TwitterAPI-MacTests */ = {
+		6AAEF2731BAC9F390095A4F9 /* TwitterAPI Mac Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAEF27F1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-MacTests" */;
+			buildConfigurationList = 6AAEF27F1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI Mac Tests" */;
 			buildPhases = (
 				6AAEF2701BAC9F390095A4F9 /* Sources */,
 				6AAEF2711BAC9F390095A4F9 /* Frameworks */,
@@ -377,9 +377,9 @@
 			dependencies = (
 				6AAEF2771BAC9F390095A4F9 /* PBXTargetDependency */,
 			);
-			name = "TwitterAPI-MacTests";
+			name = "TwitterAPI Mac Tests";
 			productName = TwitterAPITests;
-			productReference = 6AAEF2741BAC9F390095A4F9 /* TwitterAPI-MacTests.xctest */;
+			productReference = 6AAEF2741BAC9F390095A4F9 /* TwitterAPI Mac Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		6AAEF2C31BACB97A0095A4F9 /* TwitterAPIiOSDemo */ = {
@@ -459,10 +459,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6AAEF23E1BAC9E4E0095A4F9 /* TwitterAPI-iOS */,
-				6AAEF2481BAC9E4E0095A4F9 /* TwitterAPI-iOSTests */,
-				6AAEF26A1BAC9F390095A4F9 /* TwitterAPI-Mac */,
-				6AAEF2731BAC9F390095A4F9 /* TwitterAPI-MacTests */,
+				6AAEF23E1BAC9E4E0095A4F9 /* TwitterAPI iOS */,
+				6AAEF2481BAC9E4E0095A4F9 /* TwitterAPI iOS Tests */,
+				6AAEF26A1BAC9F390095A4F9 /* TwitterAPI Mac */,
+				6AAEF2731BAC9F390095A4F9 /* TwitterAPI Mac Tests */,
 				6AAEF2C31BACB97A0095A4F9 /* TwitterAPIiOSDemo */,
 				6AAEF2F51BACB9B10095A4F9 /* TwitterAPIOSXDemo */,
 			);
@@ -606,12 +606,12 @@
 /* Begin PBXTargetDependency section */
 		6AAEF24C1BAC9E4E0095A4F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6AAEF23E1BAC9E4E0095A4F9 /* TwitterAPI-iOS */;
+			target = 6AAEF23E1BAC9E4E0095A4F9 /* TwitterAPI iOS */;
 			targetProxy = 6AAEF24B1BAC9E4E0095A4F9 /* PBXContainerItemProxy */;
 		};
 		6AAEF2771BAC9F390095A4F9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6AAEF26A1BAC9F390095A4F9 /* TwitterAPI-Mac */;
+			target = 6AAEF26A1BAC9F390095A4F9 /* TwitterAPI Mac */;
 			targetProxy = 6AAEF2761BAC9F390095A4F9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -952,37 +952,41 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AAEF2531BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-iOS" */ = {
+		6AAEF2531BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAEF2541BAC9E4E0095A4F9 /* Debug */,
 				6AAEF2551BAC9E4E0095A4F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		6AAEF2561BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-iOSTests" */ = {
+		6AAEF2561BAC9E4E0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI iOS Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAEF2571BAC9E4E0095A4F9 /* Debug */,
 				6AAEF2581BAC9E4E0095A4F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		6AAEF27C1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-Mac" */ = {
+		6AAEF27C1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAEF27D1BAC9F390095A4F9 /* Debug */,
 				6AAEF27E1BAC9F390095A4F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		6AAEF27F1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI-MacTests" */ = {
+		6AAEF27F1BAC9F390095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPI Mac Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAEF2801BAC9F390095A4F9 /* Debug */,
 				6AAEF2811BAC9F390095A4F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6AAEF2E91BACB97A0095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPIiOSDemo" */ = {
 			isa = XCConfigurationList;
@@ -991,6 +995,7 @@
 				6AAEF2EB1BACB97A0095A4F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6AAEF3021BACB9B10095A4F9 /* Build configuration list for PBXNativeTarget "TwitterAPIOSXDemo" */ = {
 			isa = XCConfigurationList;
@@ -999,6 +1004,7 @@
 				6AAEF3041BACB9B10095A4F9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

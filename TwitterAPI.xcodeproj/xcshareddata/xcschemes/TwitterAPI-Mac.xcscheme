@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAEF26A1BAC9F390095A4F9"
                BuildableName = "TwitterAPI.framework"
-               BlueprintName = "TwitterAPI-Mac"
+               BlueprintName = "TwitterAPI Mac"
                ReferencedContainer = "container:TwitterAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-               BuildableName = "TwitterAPI-MacTests.xctest"
-               BlueprintName = "TwitterAPI-MacTests"
+               BuildableName = "TwitterAPI Mac Tests.xctest"
+               BlueprintName = "TwitterAPI Mac Tests"
                ReferencedContainer = "container:TwitterAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-               BuildableName = "TwitterAPI-MacTests.xctest"
-               BlueprintName = "TwitterAPI-MacTests"
+               BuildableName = "TwitterAPI Mac Tests.xctest"
+               BlueprintName = "TwitterAPI Mac Tests"
                ReferencedContainer = "container:TwitterAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -58,7 +58,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAEF26A1BAC9F390095A4F9"
             BuildableName = "TwitterAPI.framework"
-            BlueprintName = "TwitterAPI-Mac"
+            BlueprintName = "TwitterAPI Mac"
             ReferencedContainer = "container:TwitterAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -80,7 +80,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAEF26A1BAC9F390095A4F9"
             BuildableName = "TwitterAPI.framework"
-            BlueprintName = "TwitterAPI-Mac"
+            BlueprintName = "TwitterAPI Mac"
             ReferencedContainer = "container:TwitterAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -98,7 +98,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAEF26A1BAC9F390095A4F9"
             BuildableName = "TwitterAPI.framework"
-            BlueprintName = "TwitterAPI-Mac"
+            BlueprintName = "TwitterAPI Mac"
             ReferencedContainer = "container:TwitterAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

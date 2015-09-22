@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-               BuildableName = "TwitterAPI-MacTests.xctest"
-               BlueprintName = "TwitterAPI-MacTests"
+               BuildableName = "TwitterAPI Mac Tests.xctest"
+               BlueprintName = "TwitterAPI Mac Tests"
                ReferencedContainer = "container:TwitterAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-               BuildableName = "TwitterAPI-MacTests.xctest"
-               BlueprintName = "TwitterAPI-MacTests"
+               BuildableName = "TwitterAPI Mac Tests.xctest"
+               BlueprintName = "TwitterAPI Mac Tests"
                ReferencedContainer = "container:TwitterAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-            BuildableName = "TwitterAPI-MacTests.xctest"
-            BlueprintName = "TwitterAPI-MacTests"
+            BuildableName = "TwitterAPI Mac Tests.xctest"
+            BlueprintName = "TwitterAPI Mac Tests"
             ReferencedContainer = "container:TwitterAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -74,8 +74,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6AAEF2731BAC9F390095A4F9"
-            BuildableName = "TwitterAPI-MacTests.xctest"
-            BlueprintName = "TwitterAPI-MacTests"
+            BuildableName = "TwitterAPI Mac Tests.xctest"
+            BlueprintName = "TwitterAPI Mac Tests"
             ReferencedContainer = "container:TwitterAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
