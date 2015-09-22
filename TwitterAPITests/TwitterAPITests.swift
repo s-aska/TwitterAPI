@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import TwitterAPI
+import TwitterAPI
 
 #if os(iOS)
     import OAuthSwift
