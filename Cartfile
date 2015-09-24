@@ -1,2 +1,2 @@
 github "s-aska/MutableDataScanner"
-github "s-aska/OAuthSwift" "osx-buildable-name"
+github "dongri/OAuthSwift"
