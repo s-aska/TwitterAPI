@@ -1,2 +1,2 @@
 github "s-aska/MutableDataScanner" "1.0.5"
-github "s-aska/OAuthSwift" "d750c86af43568964e2d6f4289cb156a21ef12fb"
+github "dongri/OAuthSwift" "0.4.5"
