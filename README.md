@@ -7,6 +7,8 @@
 
 This Twitter framework is to both support the OAuth and Social.framework, can handle REST and Streaming API.
 
+:warning: **DEVELOPER RELEASE**
+
 ## Features
 
 - Streaming API connection using the NSURLSession
