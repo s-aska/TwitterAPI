@@ -16,7 +16,7 @@ import OAuthSwift
 
 public protocol TwitterAPIClient {
     
-    func request(method: String, url: NSURL, parameters: Dictionary<String, String>) -> NSURLRequest
+    func makeRequest(method: Method, url: String, parameters: Dictionary<String, String>) -> NSURLRequest
     
     var serialize: String { get }
 }
@@ -31,36 +31,36 @@ public extension TwitterAPIClient {
     
     :returns: StreamingRequest
     */
-    public func streaming(url: NSURL, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
-        return StreamingRequest(request("GET", url: url, parameters: parameters))
+    public func streaming(url: String, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
+        return StreamingRequest(makeRequest(.GET, url: url, parameters: parameters))
     }
     
     /**
-    Create a RESTRequest Instance to use to GET Method API.
+    Create a Request Instance to use to GET Method API.
     
     :param: url REST API Resource URL. (e.g., https://api.twitter.com/1.1/statuses/home_timeline.json)
     :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
     :returns: RESTRequest
     */
-    public func get(url: NSURL, parameters: Dictionary<String, String> = [:]) -> RESTRequest {
-        return RESTRequest(request("GET", url: url, parameters: parameters))
+    public func get(url: String, parameters: Dictionary<String, String> = [:]) -> Request {
+        return request(.GET, url: url, parameters: parameters)
     }
     
     /**
-    Create a RESTRequest Instance to use to POST Method API.
+    Create a Request Instance to use to POST Method API.
     
     :param: url REST API Resource URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
     :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
     :returns: RESTRequest
     */
-    public func post(url: NSURL, parameters: Dictionary<String, String> = [:]) -> RESTRequest {
-        return RESTRequest(request("POST", url: url, parameters: parameters))
+    public func post(url: String, parameters: Dictionary<String, String> = [:]) -> Request {
+        return request(.POST, url: url, parameters: parameters)
     }
     
     /**
-    Create a RESTRequest Instance.
+    Create a Request Instance.
     
     Media uploads for images are limited to 5MB in file size.
     
@@ -72,10 +72,14 @@ public extension TwitterAPIClient {
     
     :returns: RESTRequest
     */
-    public func postMedia(data: NSData) -> RESTRequest {
+    public func postMedia(data: NSData) -> Request {
         let media = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-        let url = NSURL(string: "https://upload.twitter.com/1.1/media/upload.json")!
+        let url = "https://upload.twitter.com/1.1/media/upload.json"
         return post(url, parameters: ["media": media])
+    }
+    
+    public func request(method: Method, url: String, parameters: Dictionary<String, String>) -> Request {
+        return Request(makeRequest(method, url: url, parameters: parameters))
     }
 }
 
@@ -107,16 +111,19 @@ extension TwitterAPI {
             return [ClientOAuth.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joinWithSeparator("\t")
         }
         
-        public func request(method: String, url: NSURL, parameters: Dictionary<String, String>) -> NSURLRequest {
-            let authorization = OAuthSwiftClient.authorizationHeaderForMethod(method, url: url, parameters: parameters, credential: oAuthCredential)
+        public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
+            let url = NSURL(string: urlString)!
+            let authorization = OAuthSwiftClient.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters, credential: oAuthCredential)
             let headers = ["Authorization": authorization]
             
             let request: NSURLRequest
             do {
                 request = try OAuthSwiftHTTPRequest.makeRequest(
-                    url, method: method, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding, encodeParameters: true)
+                    url, method: method.rawValue, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding, encodeParameters: true)
             } catch let error as NSError {
                 fatalError("TwitterAPIOAuthClient#request invalid request error:\(error.description)")
+            } catch {
+                fatalError("TwitterAPIOAuthClient#request invalid request unknwon error")
             }
             
             return request
@@ -146,9 +153,9 @@ extension TwitterAPI {
                 return [ClientAccount.serializeIdentifier, account.identifier!].joinWithSeparator("\t")
             }
             
-            public func request(method: String, url: NSURL, parameters: Dictionary<String, String>) -> NSURLRequest {
-                let requestMethod: SLRequestMethod = method == "GET" ? .GET : .POST
-                let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: requestMethod, URL: url, parameters: parameters)
+            public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
+                let url = NSURL(string: urlString)!
+                let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: method.slValue, URL: url, parameters: parameters)
                 socialRequest.account = account
                 return socialRequest.preparedURLRequest()
             }

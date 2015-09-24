@@ -1,13 +1,63 @@
 //
-//  StreamingRequest.swift
+//  Request.swift
 //  Justaway
 //
-//  Created by Shinichiro Aska on 8/15/15.
+//  Created by Shinichiro Aska on 9/5/15.
 //  Copyright © 2015 Shinichiro Aska. All rights reserved.
 //
 
 import Foundation
 import MutableDataScanner
+
+public class Request {
+    
+    public let originalRequest: NSURLRequest
+    public let task: NSURLSessionDataTask
+    public let delegate: TaskDelegate
+    
+    /**
+    Create a Request Instance
+    
+    :param: request NSURLRequest
+    */
+    init(_ request: NSURLRequest) {
+        originalRequest = request
+        delegate = TaskDelegate()
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
+        task = session.dataTaskWithRequest(originalRequest)
+        
+    }
+    
+    public func response(completion: TwitterAPI.CompletionHandler) {
+        delegate.completion = completion
+    }
+    
+    deinit {
+        task.resume()
+    }
+}
+
+public class TaskDelegate: NSObject, NSURLSessionDataDelegate {
+    private var mutableData = NSMutableData()
+    private var completion: TwitterAPI.CompletionHandler?
+    public var response: NSURLResponse!
+    
+    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
+        mutableData.appendData(data)
+    }
+    
+    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
+        self.response = response
+        completionHandler(.Allow)
+    }
+    
+    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+        dispatch_async(dispatch_get_main_queue(), {
+            self.completion?(responseData: self.mutableData, response: self.response, error: error)
+        })
+    }
+}
 
 public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     
@@ -98,7 +148,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
         self.response = response
         if let httpURLResponse = response as? NSHTTPURLResponse {
             if httpURLResponse.statusCode == 200 {
-                completionHandler(NSURLSessionResponseDisposition.Allow)
+                completionHandler(.Allow)
             } else {
                 completion?(responseData: scanner.data, response: response, error: nil)
             }

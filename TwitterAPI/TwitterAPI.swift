@@ -14,6 +14,20 @@ import OAuthSwift
     import Social
 #endif
 
+public enum Method: String {
+    case GET, POST
+    var slValue: SLRequestMethod {
+        get {
+            switch self {
+            case .GET:
+                return SLRequestMethod.GET
+            case .POST:
+                return SLRequestMethod.POST
+            }
+        }
+    }
+}
+
 public class TwitterAPI {
     
     public typealias ProgressHandler = (data: NSData) -> Void
