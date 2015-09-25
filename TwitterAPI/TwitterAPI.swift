@@ -31,7 +31,7 @@ public enum Method: String {
 public class TwitterAPI {
     
     public typealias ProgressHandler = (data: NSData) -> Void
-    public typealias CompletionHandler = (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void
+    public typealias CompletionHandler = (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void
     
     /**
     Create a TwitterAPIClient Instance from OAuth Information.

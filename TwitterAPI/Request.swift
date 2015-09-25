@@ -41,14 +41,14 @@ public class Request {
 public class TaskDelegate: NSObject, NSURLSessionDataDelegate {
     private var mutableData = NSMutableData()
     private var completion: TwitterAPI.CompletionHandler?
-    public var response: NSURLResponse!
+    public var response: NSHTTPURLResponse!
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
         mutableData.appendData(data)
     }
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        self.response = response
+        self.response = response as! NSHTTPURLResponse
         completionHandler(.Allow)
     }
     
@@ -66,7 +66,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     public var session: NSURLSession?
     public var task: NSURLSessionDataTask?
     public let request: NSURLRequest
-    public var response: NSURLResponse!
+    public var response: NSHTTPURLResponse!
     public let scanner = MutableDataScanner(delimiter: "\r\n")
     private var progress: TwitterAPI.ProgressHandler?
     private var completion: TwitterAPI.CompletionHandler?
@@ -145,15 +145,17 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     }
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        self.response = response
-        if let httpURLResponse = response as? NSHTTPURLResponse {
-            if httpURLResponse.statusCode == 200 {
-                completionHandler(.Allow)
-            } else {
-                completion?(responseData: scanner.data, response: response, error: nil)
-            }
-        } else {
+        guard let httpURLResponse = response as? NSHTTPURLResponse else {
             fatalError("didReceiveResponse is not NSHTTPURLResponse")
+        }
+        self.response = httpURLResponse
+        
+        if httpURLResponse.statusCode == 200 {
+            completionHandler(.Allow)
+        } else {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.completion?(responseData: self.scanner.data, response: httpURLResponse, error: nil)
+            })
         }
     }
     
