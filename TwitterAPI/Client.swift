@@ -131,7 +131,7 @@ public class OAuthClient: Client {
     
     :returns: OAuthClient
     */
-    init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
+    public init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
         self.consumerKey = consumerKey
         self.consumerSecret = consumerSecret
         let credential = OAuthSwiftCredential(consumer_key: consumerKey, consumer_secret: consumerSecret)
@@ -182,7 +182,7 @@ public class OAuthClient: Client {
         
         :returns: TwitterAPIClient
         */
-        init(account: ACAccount) {
+        public init(account: ACAccount) {
             self.account = account
         }
         
