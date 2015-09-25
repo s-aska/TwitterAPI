@@ -28,7 +28,7 @@ import SwiftyJSON
 let url = NSURL(string: "https://userstream.twitter.com/1.1/user.json")!
 let request = client
     .streaming(url)
-    .progress({ (data: NSData) -> Void in
+    .progress { (data: NSData) -> Void in
         // The already divided by CRLF ;)
         // https://dev.twitter.com/streaming/overview/processing
         let json = JSON(data: data)
@@ -47,22 +47,28 @@ request.stop
 ```swift
 let url = NSURL(string: "")!
 let parameters = [String: String]()
-client.get(url, parameters: parameters).send() {
-    (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+client
+    .get(url, parameters: parameters)
+    .response {
+        (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
-}
+    }
 
 // Without parameters
-client.get(url).send() {
-    (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+client
+    .get(url)
+    .response {
+        (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
-}
+    }
 
 // POST
-client.post(url, parameters: parameters).send() {
-    (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+client
+    .post(url, parameters: parameters)
+    .response {
+        (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
-}
+    }
 ```
 
 
