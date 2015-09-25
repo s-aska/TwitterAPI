@@ -51,8 +51,8 @@ class TwitterAPITests: XCTestCase {
     func testStreaming() {
         let client = OAuthClient(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
         let request = client.streaming("https://userstream.twitter.com/1.1/user.json")
-        XCTAssertEqual(request.request.URL?.absoluteString, "https://userstream.twitter.com/1.1/user.json")
-        XCTAssertEqual(request.request.HTTPMethod, "GET")
+        XCTAssertEqual(request.originalRequest.URL?.absoluteString, "https://userstream.twitter.com/1.1/user.json")
+        XCTAssertEqual(request.originalRequest.HTTPMethod, "GET")
     }
     
     func testGETWithParameters() {
