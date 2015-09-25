@@ -21,7 +21,7 @@ public protocol Client {
     var serialize: String { get }
 }
 
-class ClientDeserializer {
+public class ClientDeserializer {
     
     /**
     Create a TwitterAPIClient Instance from serialized data.
@@ -32,7 +32,7 @@ class ClientDeserializer {
     
     :returns: TwitterAPIClient
     */
-    class func deserialize(string: String) -> Client {
+    public class func deserialize(string: String) -> Client {
         #if os(iOS)
             switch string {
             case let string where string.hasPrefix(OAuthClient.serializeIdentifier):
