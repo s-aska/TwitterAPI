@@ -69,6 +69,25 @@ client
     }
 ```
 
+### with Alamofire
+
+```swift
+let client = OAuthClient(
+    consumerKey: "",
+    consumerSecret: "",
+    accessToken: "",
+    accessTokenSecret: "")
+
+let url = "https://api.twitter.com/1.1/statuses/update.json"
+let parameters = ["status": "Alamofire"]
+
+Alamofire
+    .request(client.makeRequest(.POST, url: url, parameters: parameters))
+    .reponseJSON { response in
+
+    }
+```
+
 
 ## How to get client object
 
