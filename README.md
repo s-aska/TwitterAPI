@@ -137,12 +137,12 @@ accountStore.requestAccessToAccountsWithType(accountType, options: nil) {
     }
 
     let client = TwitterAPI.client(account: account)
-    let url = NSURL(string: "")!
-    let parameters = [String: String]()
-    client.get(url, parameters: parameters).send() {
-        (responseData: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+    client
+        .get("https://api.twitter.com/1.1/statuses/home_timeline.json")
+        .response {
+            (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
-    }
+        }
 }
 ```
 
