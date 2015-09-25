@@ -14,14 +14,42 @@ import OAuthSwift
     import Social
 #endif
 
-public protocol TwitterAPIClient {
+public protocol Client {
     
     func makeRequest(method: Method, url: String, parameters: Dictionary<String, String>) -> NSURLRequest
     
     var serialize: String { get }
 }
 
-public extension TwitterAPIClient {
+class ClientDeserializer {
+    
+    /**
+    Create a TwitterAPIClient Instance from serialized data.
+    
+    Like to restore it from the saved information Keychain.
+    
+    :param: serializedString Getting by TwitterAPIClient#serialize
+    
+    :returns: TwitterAPIClient
+    */
+    class func deserialize(string: String) -> Client {
+        #if os(iOS)
+            switch string {
+            case let string where string.hasPrefix(OAuthClient.serializeIdentifier):
+                return OAuthClient(serializedString: string)
+                
+            case let string where string.hasPrefix(AccountClient.serializeIdentifier):
+                return AccountClient(serializedString: string)
+            default:
+                fatalError("invalid serializedString:\(string)")
+            }
+            #else
+            return OAuthClient(serializedString: string)
+        #endif
+    }
+}
+
+public extension Client {
     
     /**
     Create a StreamingRequest Instance.
@@ -83,82 +111,95 @@ public extension TwitterAPIClient {
     }
 }
 
-extension TwitterAPI {
+public class OAuthClient: Client {
     
-    public class ClientOAuth: TwitterAPIClient {
+    static var serializeIdentifier = "OAuth"
+    
+    public let consumerKey: String
+    public let consumerSecret: String
+    public let oAuthCredential: OAuthSwiftCredential
+    
+    /**
+    Create a TwitterAPIClient Instance from OAuth Information.
+    
+    See: https://apps.twitter.com/
+    
+    :param: consumerKey Consumer Key (API Key)
+    :param: consumerSecret Consumer Secret (API Secret)
+    :param: accessToken Access Token
+    :param: accessTokenSecret Access Token Secret
+    
+    :returns: OAuthClient
+    */
+    init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
+        self.consumerKey = consumerKey
+        self.consumerSecret = consumerSecret
+        let credential = OAuthSwiftCredential(consumer_key: consumerKey, consumer_secret: consumerSecret)
+        credential.oauth_token = accessToken
+        credential.oauth_token_secret = accessTokenSecret
+        self.oAuthCredential = credential
+    }
+    
+    convenience init(serializedString string: String) {
+        let parts = string.componentsSeparatedByString("\t")
+        self.init(consumerKey: parts[1], consumerSecret: parts[2], accessToken: parts[3], accessTokenSecret: parts[4])
+    }
+    
+    public var serialize: String {
+        return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joinWithSeparator("\t")
+    }
+    
+    public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
+        let url = NSURL(string: urlString)!
+        let authorization = OAuthSwiftClient.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters, credential: oAuthCredential)
+        let headers = ["Authorization": authorization]
         
-        static var serializeIdentifier = "OAuth"
-        
-        public let consumerKey: String
-        public let consumerSecret: String
-        public let oAuthCredential: OAuthSwiftCredential
-        
-        init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
-            self.consumerKey = consumerKey
-            self.consumerSecret = consumerSecret
-            let credential = OAuthSwiftCredential(consumer_key: consumerKey, consumer_secret: consumerSecret)
-            credential.oauth_token = accessToken
-            credential.oauth_token_secret = accessTokenSecret
-            self.oAuthCredential = credential
+        let request: NSURLRequest
+        do {
+            request = try OAuthSwiftHTTPRequest.makeRequest(
+                url, method: method.rawValue, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding, encodeParameters: true)
+        } catch let error as NSError {
+            fatalError("TwitterAPIOAuthClient#request invalid request error:\(error.description)")
+        } catch {
+            fatalError("TwitterAPIOAuthClient#request invalid request unknwon error")
         }
         
-        convenience init(serializedString string: String) {
-            let parts = string.componentsSeparatedByString("\t")
-            self.init(consumerKey: parts[1], consumerSecret: parts[2], accessToken: parts[3], accessTokenSecret: parts[4])
-        }
-        
-        public var serialize: String {
-            return [ClientOAuth.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joinWithSeparator("\t")
-        }
-        
-        public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
-            let url = NSURL(string: urlString)!
-            let authorization = OAuthSwiftClient.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters, credential: oAuthCredential)
-            let headers = ["Authorization": authorization]
-            
-            let request: NSURLRequest
-            do {
-                request = try OAuthSwiftHTTPRequest.makeRequest(
-                    url, method: method.rawValue, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding, encodeParameters: true)
-            } catch let error as NSError {
-                fatalError("TwitterAPIOAuthClient#request invalid request error:\(error.description)")
-            } catch {
-                fatalError("TwitterAPIOAuthClient#request invalid request unknwon error")
-            }
-            
-            return request
-        }
+        return request
     }
 }
 
 #if os(iOS)
-    extension TwitterAPI {
+    public class AccountClient: Client {
         
-        public class ClientAccount: TwitterAPIClient {
-            
-            static var serializeIdentifier = "Account"
-            
-            public let account: ACAccount
-            
-            init(account: ACAccount) {
-                self.account = account
-            }
-            
-            init(serializedString string: String) {
-                let parts = string.componentsSeparatedByString("\t")
-                self.account = ACAccountStore().accountWithIdentifier(parts[1])
-            }
-            
-            public var serialize: String {
-                return [ClientAccount.serializeIdentifier, account.identifier!].joinWithSeparator("\t")
-            }
-            
-            public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
-                let url = NSURL(string: urlString)!
-                let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: method.slValue, URL: url, parameters: parameters)
-                socialRequest.account = account
-                return socialRequest.preparedURLRequest()
-            }
+        static var serializeIdentifier = "Account"
+        
+        public let account: ACAccount
+        
+        /**
+        Create a TwitterAPIClient Instance from Social.framework.
+        
+        :param: account ACAccount
+        
+        :returns: TwitterAPIClient
+        */
+        init(account: ACAccount) {
+            self.account = account
+        }
+        
+        init(serializedString string: String) {
+            let parts = string.componentsSeparatedByString("\t")
+            self.account = ACAccountStore().accountWithIdentifier(parts[1])
+        }
+        
+        public var serialize: String {
+            return [AccountClient.serializeIdentifier, account.identifier!].joinWithSeparator("\t")
+        }
+        
+        public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
+            let url = NSURL(string: urlString)!
+            let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: method.slValue, URL: url, parameters: parameters)
+            socialRequest.account = account
+            return socialRequest.preparedURLRequest()
         }
     }
 #endif

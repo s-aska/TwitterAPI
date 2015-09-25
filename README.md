@@ -77,7 +77,7 @@ client
 ```swift
 import TwitterAPI
 
-let client = TwitterAPI.client(
+let client = OAuthClient(
     consumerKey: "",
     consumerSecret: "",
     accessToken: "",
@@ -90,7 +90,7 @@ let client = TwitterAPI.client(
 import Accounts
 import TwitterAPI
 
-let client = TwitterAPI.client(account: account)
+let client = AccountClient(account: account)
 ```
 
 ### Serialize / Deserialize
@@ -100,7 +100,7 @@ Saving and loading can be, for example, using a keychain.
 ```swift
 let string = client.serialize
 
-let client = TwitterAPI.client(serializedString: client.serialize)
+let client = ClientDeserializer.deserialize(client.serialize)
 ```
 
 
@@ -136,7 +136,7 @@ accountStore.requestAccessToAccountsWithType(accountType, options: nil) {
         return
     }
 
-    let client = TwitterAPI.client(account: account)
+    let client = AccountClient(account: account)
     client
         .get("https://api.twitter.com/1.1/statuses/home_timeline.json")
         .response {
@@ -163,7 +163,7 @@ let oauthswift = OAuth1Swift(
 )
 oauthswift.authorizeWithCallbackURL(NSURL(string: "yourappscheme://success")!,
     success: { (credential, response) -> Void in
-        let client = TwitterAPI.client(
+        let client = OAuthClient(
             consumerKey: "YOUR_APP_CONSUMER_KEY",
             consumerSecret: "YOUR_APP_CONSUMER_SECRET",
             accessToken: credential.oauth_token,

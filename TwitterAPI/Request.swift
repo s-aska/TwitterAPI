@@ -29,7 +29,7 @@ public class Request {
         
     }
     
-    public func response(completion: TwitterAPI.CompletionHandler) {
+    public func response(completion: CompletionHandler) {
         delegate.completion = completion
     }
     
@@ -40,7 +40,7 @@ public class Request {
 
 public class TaskDelegate: NSObject, NSURLSessionDataDelegate {
     private var mutableData = NSMutableData()
-    private var completion: TwitterAPI.CompletionHandler?
+    private var completion: CompletionHandler?
     public var response: NSHTTPURLResponse!
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
@@ -68,8 +68,8 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     public let request: NSURLRequest
     public var response: NSHTTPURLResponse!
     public let scanner = MutableDataScanner(delimiter: "\r\n")
-    private var progress: TwitterAPI.ProgressHandler?
-    private var completion: TwitterAPI.CompletionHandler?
+    private var progress: ProgressHandler?
+    private var completion: CompletionHandler?
     
     /**
     Create a StreamingRequest Instance
@@ -111,7 +111,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     
     :returns: self
     */
-    public func progress(progress: TwitterAPI.ProgressHandler) -> StreamingRequest {
+    public func progress(progress: ProgressHandler) -> StreamingRequest {
         self.progress = progress
         return self
     }
@@ -128,7 +128,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     
     :returns: self
     */
-    public func completion(completion: TwitterAPI.CompletionHandler) -> StreamingRequest {
+    public func completion(completion: CompletionHandler) -> StreamingRequest {
         self.completion = completion
         return self
     }
