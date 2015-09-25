@@ -25,9 +25,8 @@ This Twitter framework is to both support the OAuth and Social.framework, can ha
 import TwitterAPI
 import SwiftyJSON
 
-let url = NSURL(string: "https://userstream.twitter.com/1.1/user.json")!
 let request = client
-    .streaming(url)
+    .streaming("https://userstream.twitter.com/1.1/user.json")
     .progress { (data: NSData) -> Void in
         // The already divided by CRLF ;)
         // https://dev.twitter.com/streaming/overview/processing
@@ -45,10 +44,9 @@ request.stop
 ### REST API
 
 ```swift
-let url = NSURL(string: "")!
 let parameters = [String: String]()
 client
-    .get(url, parameters: parameters)
+    .get("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: parameters)
     .response {
         (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
@@ -56,7 +54,7 @@ client
 
 // Without parameters
 client
-    .get(url)
+    .get("https://api.twitter.com/1.1/statuses/home_timeline.json")
     .response {
         (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
@@ -64,7 +62,7 @@ client
 
 // POST
 client
-    .post(url, parameters: parameters)
+    .post("https://api.twitter.com/1.1/statuses/update.json", parameters: parameters)
     .response {
         (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void in
 
