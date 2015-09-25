@@ -24,13 +24,13 @@ public protocol Client {
 public class ClientDeserializer {
     
     /**
-    Create a TwitterAPIClient Instance from serialized data.
+    Create a Client Instance from serialized data.
     
     Like to restore it from the saved information Keychain.
     
-    :param: serializedString Getting by TwitterAPIClient#serialize
+    :param: serializedString Getting by Client#serialize
     
-    :returns: TwitterAPIClient
+    :returns: Client
     */
     public class func deserialize(string: String) -> Client {
         #if os(iOS)
@@ -54,7 +54,7 @@ public extension Client {
     /**
     Create a StreamingRequest Instance.
     
-    :param: url Streaming API Resource URL. (e.g., https://userstream.twitter.com/1.1/user.json)
+    :param: url Streaming API endpoint URL. (e.g., https://userstream.twitter.com/1.1/user.json)
     :param: parameters Streaming API Request Parameters (See https://dev.twitter.com/streaming/overview)
     
     :returns: StreamingRequest
@@ -66,7 +66,7 @@ public extension Client {
     /**
     Create a Request Instance to use to GET Method API.
     
-    :param: url REST API Resource URL. (e.g., https://api.twitter.com/1.1/statuses/home_timeline.json)
+    :param: url REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/home_timeline.json)
     :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
     :returns: RESTRequest
@@ -78,7 +78,7 @@ public extension Client {
     /**
     Create a Request Instance to use to POST Method API.
     
-    :param: url REST API Resource URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
+    :param: url REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
     :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
     :returns: RESTRequest
@@ -88,7 +88,7 @@ public extension Client {
     }
     
     /**
-    Create a Request Instance.
+    Create a Request Instance to use to Media Upload API.
     
     Media uploads for images are limited to 5MB in file size.
     
@@ -106,6 +106,15 @@ public extension Client {
         return post(url, parameters: ["media": media])
     }
     
+    /**
+    Create a Request Instance.
+    
+    :param: method HTTP Method
+    :param: url REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
+    :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
+    
+    :returns: RESTRequest
+    */
     public func request(method: Method, url: String, parameters: Dictionary<String, String>) -> Request {
         return Request(makeRequest(method, url: url, parameters: parameters))
     }
@@ -145,10 +154,28 @@ public class OAuthClient: Client {
         self.init(consumerKey: parts[1], consumerSecret: parts[2], accessToken: parts[3], accessTokenSecret: parts[4])
     }
     
+    /**
+    It be to storable the Client object
+    
+    How to Restore
+    
+    let client = ClientDeserializer.deserialize(client.serialize)
+    
+    :returns: String
+    */
     public var serialize: String {
         return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joinWithSeparator("\t")
     }
     
+    /**
+    It will generate a NSURLRequest object with the authentication header.
+    
+    :param: method HTTPMethod
+    :param: url API endpoint URL
+    :param: parameters API Parameters
+    
+    :returns: NSURLRequest
+    */
     public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
         let url = NSURL(string: urlString)!
         let authorization = OAuthSwiftClient.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters, credential: oAuthCredential)
@@ -176,11 +203,11 @@ public class OAuthClient: Client {
         public let account: ACAccount
         
         /**
-        Create a TwitterAPIClient Instance from Social.framework.
+        Create a Client Instance from ACAccount(Social.framework).
         
         :param: account ACAccount
         
-        :returns: TwitterAPIClient
+        :returns: AccountClient
         */
         public init(account: ACAccount) {
             self.account = account
@@ -191,10 +218,28 @@ public class OAuthClient: Client {
             self.account = ACAccountStore().accountWithIdentifier(parts[1])
         }
         
+        /**
+        It be to storable the Client object
+        
+        How to Restore
+        
+        let client = ClientDeserializer.deserialize(client.serialize)
+        
+        :returns: String
+        */
         public var serialize: String {
             return [AccountClient.serializeIdentifier, account.identifier!].joinWithSeparator("\t")
         }
         
+        /**
+        It will generate a NSURLRequest object with the authentication header.
+        
+        :param: method HTTPMethod
+        :param: url API endpoint URL
+        :param: parameters API Parameters
+        
+        :returns: NSURLRequest
+        */
         public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
             let url = NSURL(string: urlString)!
             let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: method.slValue, URL: url, parameters: parameters)

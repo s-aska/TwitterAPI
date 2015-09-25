@@ -19,14 +19,16 @@ public class Request {
     Create a Request Instance
     
     :param: request NSURLRequest
+    :param: configuration NSURLSessionConfiguration
+    :param: queue NSOperationQueue
+    
+    :returns: Request
     */
-    init(_ request: NSURLRequest) {
+    init(_ request: NSURLRequest, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), queue: NSOperationQueue? = nil) {
         originalRequest = request
         delegate = TaskDelegate()
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
+        let session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
         task = session.dataTaskWithRequest(originalRequest)
-        
     }
     
     public func response(completion: CompletionHandler) {
@@ -37,6 +39,8 @@ public class Request {
         task.resume()
     }
 }
+
+// MARK: - TaskDelegate
 
 public class TaskDelegate: NSObject, NSURLSessionDataDelegate {
     private var mutableData = NSMutableData()
@@ -59,25 +63,27 @@ public class TaskDelegate: NSObject, NSURLSessionDataDelegate {
     }
 }
 
+// MARK: - StreamingRequest
+
 public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     
-    private let serial = dispatch_queue_create("pw.aska.TwitterAPI.TwitterStreamingRequest", DISPATCH_QUEUE_SERIAL)
+    
     
     public var session: NSURLSession?
     public var task: NSURLSessionDataTask?
-    public let request: NSURLRequest
-    public var response: NSHTTPURLResponse!
-    public let scanner = MutableDataScanner(delimiter: "\r\n")
-    private var progress: ProgressHandler?
-    private var completion: CompletionHandler?
+    public let originalRequest: NSURLRequest
+    public let delegate: StreamingDelegate
     
     /**
     Create a StreamingRequest Instance
     
     :param: request NSURLRequest
     */
-    public init(_ request: NSURLRequest) {
-        self.request = request
+    public init(_ request: NSURLRequest, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), queue: NSOperationQueue? = nil) {
+        originalRequest = request
+        delegate = StreamingDelegate()
+        session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
+        task = session?.dataTaskWithRequest(request)
     }
     
     /**
@@ -86,9 +92,6 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     :returns: self
     */
     public func start() -> StreamingRequest {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        session = NSURLSession(configuration: configuration, delegate: self, delegateQueue: nil)
-        task = session?.dataTaskWithRequest(request)
         task?.resume()
         return self
     }
@@ -96,8 +99,9 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     /**
     Disconnect streaming.
     */
-    public func stop() {
+    public func stop() -> StreamingRequest {
         task?.cancel()
+        return self
     }
     
     /**
@@ -112,7 +116,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     :returns: self
     */
     public func progress(progress: ProgressHandler) -> StreamingRequest {
-        self.progress = progress
+        delegate.progress = progress
         return self
     }
     
@@ -129,9 +133,21 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     :returns: self
     */
     public func completion(completion: CompletionHandler) -> StreamingRequest {
-        self.completion = completion
+        delegate.completion = completion
         return self
     }
+}
+
+// MARK: - StreamingDelegate
+
+public class StreamingDelegate: NSObject, NSURLSessionDataDelegate {
+    
+    private let serial = dispatch_queue_create("pw.aska.TwitterAPI.TwitterStreamingRequest", DISPATCH_QUEUE_SERIAL)
+    
+    public var response: NSHTTPURLResponse!
+    public let scanner = MutableDataScanner(delimiter: "\r\n")
+    private var progress: ProgressHandler?
+    private var completion: CompletionHandler?
     
     public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
         dispatch_sync(serial) {
@@ -161,11 +177,9 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
     
     public func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
-            if challenge.protectionSpace.host == request.URL?.host {
-                completionHandler(
-                    NSURLSessionAuthChallengeDisposition.UseCredential,
-                    NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
-            }
+            completionHandler(
+                NSURLSessionAuthChallengeDisposition.UseCredential,
+                NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
         }
     }
     
