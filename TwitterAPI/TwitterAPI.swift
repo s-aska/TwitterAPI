@@ -16,6 +16,7 @@ import OAuthSwift
 
 public enum Method: String {
     case GET, POST
+    #if os(iOS)
     var slValue: SLRequestMethod {
         get {
             switch self {
@@ -26,6 +27,7 @@ public enum Method: String {
             }
         }
     }
+    #endif
 }
 
 public typealias ProgressHandler = (data: NSData) -> Void
