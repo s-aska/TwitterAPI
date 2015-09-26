@@ -1,0 +1,12 @@
+machine:
+  xcode:
+    version: "7.0"
+dependencies:
+  override:
+    - brew install carthage:
+    - carthage bootstrap:
+        timeout: 300
+test:
+  override:
+    - case $CIRCLE_NODE_INDEX in 0) xctool -project TwitterAPI.xcodeproj -scheme TwitterAPITests-iOS -sdk iphonesimulator -configuration Release build test ;; 1) xctool -project TwitterAPI.xcodeproj -scheme TwitterAPITests-Mac -sdk macosx -configuration Release build test ;; esac:
+        parallel: true
