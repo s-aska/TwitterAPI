@@ -43,7 +43,7 @@ public class ClientDeserializer {
             default:
                 fatalError("invalid serializedString:\(string)")
             }
-            #else
+        #else
             return OAuthClient(serializedString: string)
         #endif
     }
