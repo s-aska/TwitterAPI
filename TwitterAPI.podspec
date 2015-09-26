@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "TwitterAPI"
-  s.version          = "0.0.5"
+  s.version          = "0.0.9"
   s.summary          = "This Twitter framework is to both support the OAuth and Social.framework, can handle REST and Streaming API."
   s.description      = <<-DESC
                          Features
