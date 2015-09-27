@@ -28,7 +28,7 @@ import SwiftyJSON
 
 let request = client
     .streaming("https://userstream.twitter.com/1.1/user.json")
-    .progress { (data: NSData) -> Void in
+    .progress({ (data: NSData) -> Void in
         // The already divided by CRLF ;)
         // https://dev.twitter.com/streaming/overview/processing
         let json = JSON(data: data)
@@ -39,7 +39,7 @@ let request = client
     .start()
 
 // disconnect
-request.stop
+request.stop()
 ```
 
 ### REST API
