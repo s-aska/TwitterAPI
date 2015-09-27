@@ -4,6 +4,7 @@ machine:
 dependencies:
   override:
     - brew install carthage:
+        timeout: 300
     - carthage bootstrap:
         timeout: 300
 test:
