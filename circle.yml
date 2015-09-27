@@ -5,7 +5,7 @@ dependencies:
   override:
     - brew install carthage:
         timeout: 300
-    - carthage bootstrap:
+    - carthage bootstrap --verbose:
         timeout: 300
 test:
   override:
