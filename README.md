@@ -2,8 +2,9 @@
 
 [![Build Status](https://www.bitrise.io/app/b4ece76000399048.svg?token=3fi0raeSSGrPVhXLDXNk2w&branch=master)](https://www.bitrise.io/app/b4ece76000399048)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![](http://img.shields.io/badge/iOS-9.0%2B-brightgreen.svg?style=flat)]()
-[![](http://img.shields.io/badge/OS%20X-10.10%2B-brightgreen.svg?style=flat)]()
+[![](https://img.shields.io/badge/Xcode-7.0%2B-brightgreen.svg?style=flat)]()
+[![](https://img.shields.io/badge/iOS-9.0%2B-brightgreen.svg?style=flat)]()
+[![](https://img.shields.io/badge/OS%20X-10.10%2B-brightgreen.svg?style=flat)]()
 
 This Twitter framework is to both support the OAuth and Social.framework, can handle REST and Streaming API.
 
