@@ -14,6 +14,9 @@ import OAuthSwift
     import Social
 #endif
 
+/**
+HTTP Request Method
+*/
 public enum Method: String {
     case GET, POST
     #if os(iOS)

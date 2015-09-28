@@ -14,13 +14,41 @@ import OAuthSwift
     import Social
 #endif
 
+/**
+Have the authentication information.
+
+It is possible to generate the request.
+*/
 public protocol Client {
     
+    /**
+    It will generate a NSURLRequest object with the authentication header.
+    
+    - Parameter method: HTTPMethod
+    - Parameter url: API endpoint URL
+    - Parameter parameters: API Parameters
+    
+    - Returns: NSURLRequest
+    */
     func makeRequest(method: Method, url: String, parameters: Dictionary<String, String>) -> NSURLRequest
     
+    /**
+    It be to storable the Client object
+    
+    How to Restore
+    
+    ```swift
+    let client = ClientDeserializer.deserialize(client.serialize)
+    ```
+    
+    - Returns: String
+    */
     var serialize: String { get }
 }
 
+/**
+Deserialize the Client Instance from String.
+*/
 public class ClientDeserializer {
     
     /**
@@ -28,9 +56,9 @@ public class ClientDeserializer {
     
     Like to restore it from the saved information Keychain.
     
-    :param: serializedString Getting by Client#serialize
+    - Parameter serializedString: Getting by Client#serialize
     
-    :returns: Client
+    - Returns: Client
     */
     public class func deserialize(string: String) -> Client {
         #if os(iOS)
@@ -54,10 +82,10 @@ public extension Client {
     /**
     Create a StreamingRequest Instance.
     
-    :param: url Streaming API endpoint URL. (e.g., https://userstream.twitter.com/1.1/user.json)
-    :param: parameters Streaming API Request Parameters (See https://dev.twitter.com/streaming/overview)
+    - Parameter url: Streaming API endpoint URL. (e.g., https://userstream.twitter.com/1.1/user.json)
+    - Parameter parameters: Streaming API Request Parameters (See https://dev.twitter.com/streaming/overview)
     
-    :returns: StreamingRequest
+    - Returns: StreamingRequest
     */
     public func streaming(url: String, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
         return StreamingRequest(makeRequest(.GET, url: url, parameters: parameters))
@@ -66,10 +94,10 @@ public extension Client {
     /**
     Create a Request Instance to use to GET Method API.
     
-    :param: url REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/home_timeline.json)
-    :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
+    - Parameter url: REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/home_timeline.json)
+    - Parameter parameters: REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
-    :returns: RESTRequest
+    - Returns: RESTRequest
     */
     public func get(url: String, parameters: Dictionary<String, String> = [:]) -> Request {
         return request(.GET, url: url, parameters: parameters)
@@ -78,10 +106,10 @@ public extension Client {
     /**
     Create a Request Instance to use to POST Method API.
     
-    :param: url REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
-    :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
+    - Parameter url: REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
+    - Parameter parameters: REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
-    :returns: RESTRequest
+    - Returns: RESTRequest
     */
     public func post(url: String, parameters: Dictionary<String, String> = [:]) -> Request {
         return request(.POST, url: url, parameters: parameters)
@@ -96,9 +124,9 @@ public extension Client {
     
     See: https://dev.twitter.com/rest/reference/post/media/upload
     
-    :param: data The raw binary file content being uploaded.
+    - Parameter data: The raw binary file content being uploaded.
     
-    :returns: RESTRequest
+    - Returns: RESTRequest
     */
     public func postMedia(data: NSData) -> Request {
         let media = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
@@ -109,23 +137,31 @@ public extension Client {
     /**
     Create a Request Instance.
     
-    :param: method HTTP Method
-    :param: url REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
-    :param: parameters REST API Request Parameters (See https://dev.twitter.com/rest/public)
+    - Parameter method: HTTP Method
+    - Parameter url: REST API endpoint URL. (e.g., https://api.twitter.com/1.1/statuses/update.json)
+    - Parameter parameters: REST API Request Parameters (See https://dev.twitter.com/rest/public)
     
-    :returns: RESTRequest
+    - Returns: RESTRequest
     */
     public func request(method: Method, url: String, parameters: Dictionary<String, String>) -> Request {
         return Request(makeRequest(method, url: url, parameters: parameters))
     }
 }
 
+/**
+Client to have the authentication information of OAuth
+*/
 public class OAuthClient: Client {
     
     static var serializeIdentifier = "OAuth"
     
+    /// Twitter Consumer Key (API Key)
     public let consumerKey: String
+    
+    /// Twitter Consumer Secret (API Secret)
     public let consumerSecret: String
+    
+    /// Twitter Credential (AccessToken)
     public let oAuthCredential: OAuthSwiftCredential
     
     /**
@@ -133,12 +169,12 @@ public class OAuthClient: Client {
     
     See: https://apps.twitter.com/
     
-    :param: consumerKey Consumer Key (API Key)
-    :param: consumerSecret Consumer Secret (API Secret)
-    :param: accessToken Access Token
-    :param: accessTokenSecret Access Token Secret
+    - Parameter consumerKey: Consumer Key (API Key)
+    - Parameter consumerSecret: Consumer Secret (API Secret)
+    - Parameter accessToken: Access Token
+    - Parameter accessTokenSecret: Access Token Secret
     
-    :returns: OAuthClient
+    - Returns: OAuthClient
     */
     public init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
         self.consumerKey = consumerKey
@@ -159,9 +195,11 @@ public class OAuthClient: Client {
     
     How to Restore
     
+    ```swift
     let client = ClientDeserializer.deserialize(client.serialize)
+    ```
     
-    :returns: String
+    - Returns: String
     */
     public var serialize: String {
         return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joinWithSeparator("\t")
@@ -170,11 +208,11 @@ public class OAuthClient: Client {
     /**
     It will generate a NSURLRequest object with the authentication header.
     
-    :param: method HTTPMethod
-    :param: url API endpoint URL
-    :param: parameters API Parameters
+    - Parameter method: HTTPMethod
+    - Parameter url: API endpoint URL
+    - Parameter parameters: API Parameters
     
-    :returns: NSURLRequest
+    - Returns: NSURLRequest
     */
     public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
         let url = NSURL(string: urlString)!
@@ -196,18 +234,22 @@ public class OAuthClient: Client {
 }
 
 #if os(iOS)
+    /**
+    Client to have the authentication information of ACAccount
+    */
     public class AccountClient: Client {
         
         static var serializeIdentifier = "Account"
         
+        /// ACAccount
         public let account: ACAccount
         
         /**
         Create a Client Instance from ACAccount(Social.framework).
         
-        :param: account ACAccount
+        - Parameter account: ACAccount
         
-        :returns: AccountClient
+        - Returns: AccountClient
         */
         public init(account: ACAccount) {
             self.account = account
@@ -223,9 +265,11 @@ public class OAuthClient: Client {
         
         How to Restore
         
+        ```swift
         let client = ClientDeserializer.deserialize(client.serialize)
+        ```
         
-        :returns: String
+        - Returns: String
         */
         public var serialize: String {
             return [AccountClient.serializeIdentifier, account.identifier!].joinWithSeparator("\t")
@@ -234,11 +278,11 @@ public class OAuthClient: Client {
         /**
         It will generate a NSURLRequest object with the authentication header.
         
-        :param: method HTTPMethod
-        :param: url API endpoint URL
-        :param: parameters API Parameters
+        - Parameter method: HTTPMethod
+        - Parameter url: API endpoint URL
+        - Parameter parameters: API Parameters
         
-        :returns: NSURLRequest
+        - Returns: NSURLRequest
         */
         public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
             let url = NSURL(string: urlString)!
