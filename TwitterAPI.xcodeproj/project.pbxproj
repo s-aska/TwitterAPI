@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		38F2C5681BB1702D00516144 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; };
 		38F2C56A1BB1702F00516144 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; };
-		38F2C56B1BB172C200516144 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		38F2C56C1BB1730100516144 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2431BAC9E4E0095A4F9 /* TwitterAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAEF2421BAC9E4E0095A4F9 /* TwitterAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AAEF24A1BAC9E4E0095A4F9 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */; settings = {ASSET_TAGS = (); }; };
@@ -32,7 +31,6 @@
 		6AAEF2AA1BACAB780095A4F9 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; settings = {ASSET_TAGS = (); }; };
 		6AAEF2AB1BACAB820095A4F9 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2B31BACAF2C0095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2B71BACB15D0095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2BB1BACB3E20095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2BE1BACB4280095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */; };
 		6AAEF2BF1BACB43C0095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -82,8 +80,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				38F2C56B1BB172C200516144 /* OAuthSwift.framework in CopyFiles */,
-				6AAEF2B71BACB15D0095A4F9 /* MutableDataScanner.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +236,6 @@
 				6AAEF23B1BAC9E4E0095A4F9 /* Frameworks */,
 				6AAEF23C1BAC9E4E0095A4F9 /* Headers */,
 				6AAEF23D1BAC9E4E0095A4F9 /* Resources */,
-				6AAEF29F1BACA6470095A4F9 /* ShellScript */,
 				6AAEF2A21BACA8E50095A4F9 /* CopyFiles */,
 			);
 			buildRules = (
@@ -384,23 +379,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6AAEF29F1BACA6470095A4F9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/MutableDataScanner.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6AAEF23A1BAC9E4E0095A4F9 /* Sources */ = {
