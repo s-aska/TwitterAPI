@@ -249,7 +249,9 @@ public class OAuthClient: Client {
                 if let ac = accountCache {
                     return ac
                 } else {
-                    return ACAccountStore().accountWithIdentifier(identifier)
+                    let ac = ACAccountStore().accountWithIdentifier(identifier)
+                    accountCache = ac
+                    return ac
                 }
             }
         }
