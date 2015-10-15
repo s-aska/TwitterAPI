@@ -255,7 +255,7 @@ public class OAuthClient: Client {
                 }
             }
         }
-        private var accountCache: ACAccount?
+        public var accountCache: ACAccount?
         
         /**
         Create a Client Instance from ACAccount(Social.framework).
