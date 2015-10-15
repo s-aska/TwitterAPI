@@ -241,7 +241,7 @@ public class OAuthClient: Client {
         
         static var serializeIdentifier = "Account"
         
-        private let identifier: String
+        public let identifier: String
         
         /// ACAccount
         public var account: ACAccount {
