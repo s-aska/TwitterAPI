@@ -241,8 +241,19 @@ public class OAuthClient: Client {
         
         static var serializeIdentifier = "Account"
         
+        private let identifier: String
+        
         /// ACAccount
-        public let account: ACAccount
+        public var account: ACAccount {
+            get {
+                if let ac = accountCache {
+                    return ac
+                } else {
+                    return ACAccountStore().accountWithIdentifier(identifier)
+                }
+            }
+        }
+        private var accountCache: ACAccount?
         
         /**
         Create a Client Instance from ACAccount(Social.framework).
@@ -252,12 +263,13 @@ public class OAuthClient: Client {
         - Returns: AccountClient
         */
         public init(account: ACAccount) {
-            self.account = account
+            self.accountCache = account
+            self.identifier = account.identifier!
         }
         
         init(serializedString string: String) {
             let parts = string.componentsSeparatedByString("\t")
-            self.account = ACAccountStore().accountWithIdentifier(parts[1])
+            self.identifier = parts[1]
         }
         
         /**
