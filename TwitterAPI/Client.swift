@@ -164,6 +164,10 @@ public class OAuthClient: Client {
     /// Twitter Credential (AccessToken)
     public let oAuthCredential: OAuthSwiftCredential
     
+    public var debugDescription: String {
+        return "[consumerKey: \(consumerKey), consumerSecret: \(consumerSecret), accessToken: \(oAuthCredential.oauth_token), accessTokenSecret: \(oAuthCredential.oauth_token_secret)]"
+    }
+    
     /**
     Create a TwitterAPIClient Instance from OAuth Information.
     
@@ -256,6 +260,10 @@ public class OAuthClient: Client {
             }
         }
         private var accountCache: ACAccount?
+        
+        public var debugDescription: String {
+            return "[identifier: \(identifier), cache: " + (accountCache != nil ? "exists" : "nil") + "]"
+        }
         
         /**
         Create a Client Instance from ACAccount(Social.framework).

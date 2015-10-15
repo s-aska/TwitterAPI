@@ -29,6 +29,9 @@ class TwitterAPITests: XCTestCase {
     
     func testSerializeOAuth() {
         let client = OAuthClient(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
+        
+        XCTAssertEqual(client.debugDescription, "[consumerKey: hoge, consumerSecret: foo, accessToken: bar, accessTokenSecret: baz]", "client.debugDescription")
+        
         XCTAssertEqual(client.serialize, "OAuth\thoge\tfoo\tbar\tbaz", "client.serialize")
         
         let clientCopy = ClientDeserializer.deserialize(client.serialize)
