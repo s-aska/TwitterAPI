@@ -216,7 +216,7 @@ public class OAuthClient: Client {
     */
     public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
         let url = NSURL(string: urlString)!
-        let authorization = OAuthSwiftClient.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters, credential: oAuthCredential)
+        let authorization = oAuthCredential.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters)
         let headers = ["Authorization": authorization]
         
         let request: NSURLRequest
