@@ -31,6 +31,16 @@ public enum Method: String {
         }
     }
     #endif
+    var oAuthSwiftValue: OAuthSwiftHTTPRequest.Method {
+        get {
+            switch self {
+            case .GET:
+                return OAuthSwiftHTTPRequest.Method.GET
+            case .POST:
+                return OAuthSwiftHTTPRequest.Method.POST
+            }
+        }
+    }
 }
 
 public typealias ProgressHandler = (data: NSData) -> Void

@@ -220,13 +220,13 @@ public class OAuthClient: Client {
     */
     public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
         let url = NSURL(string: urlString)!
-        let authorization = oAuthCredential.authorizationHeaderForMethod(method.rawValue, url: url, parameters: parameters)
+        let authorization = oAuthCredential.authorizationHeaderForMethod(method.oAuthSwiftValue, url: url, parameters: parameters)
         let headers = ["Authorization": authorization]
         
         let request: NSURLRequest
         do {
             request = try OAuthSwiftHTTPRequest.makeRequest(
-                url, method: method.rawValue, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding, encodeParameters: true)
+                url, method: method.oAuthSwiftValue, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding)
         } catch let error as NSError {
             fatalError("TwitterAPIOAuthClient#request invalid request error:\(error.description)")
         } catch {
