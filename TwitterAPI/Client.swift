@@ -144,7 +144,7 @@ public extension Client {
     - Returns: RESTRequest
     */
     public func request(method: Method, url: String, parameters: Dictionary<String, String>) -> Request {
-        return Request(makeRequest(method, url: url, parameters: parameters))
+        return Request(self, request: makeRequest(method, url: url, parameters: parameters))
     }
 }
 

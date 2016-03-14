@@ -19,6 +19,9 @@ let request = client.get("https://api.twitter.com/1.1/statuses/home_timeline.jso
 */
 public class Request {
     
+    /// Original Client
+    public let originalClient: Client
+    
     /// Original Request
     public let originalRequest: NSURLRequest
     
@@ -37,7 +40,8 @@ public class Request {
     
     - returns: Request
     */
-    init(_ request: NSURLRequest, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), queue: NSOperationQueue? = nil) {
+    init(_ client: Client, request: NSURLRequest, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), queue: NSOperationQueue? = nil) {
+        originalClient = client
         originalRequest = request
         delegate = TaskDelegate()
         let session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
