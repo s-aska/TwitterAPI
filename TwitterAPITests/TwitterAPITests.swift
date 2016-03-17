@@ -47,7 +47,8 @@ class TwitterAPITests: XCTestCase {
     
     func testPOST() {
         let client = OAuthClient(consumerKey: "hoge", consumerSecret: "foo", accessToken: "bar", accessTokenSecret: "baz")
-        let request = client.post("https://api.twitter.com/1.1/statuses/home_timeline.json")
+        let request = client.post("https://api.twitter.com/1.1/statuses/home_timeline.json", parameters: ["status": "hoge/\nfoo\nbar"])
+        XCTAssertEqual(NSString(data: request.originalRequest.HTTPBody!, encoding: NSUTF8StringEncoding)!, "status=hoge%2F%0Afoo%0Abar")
         XCTAssertEqual(request.originalRequest.HTTPMethod, "POST")
     }
     
