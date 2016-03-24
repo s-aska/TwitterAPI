@@ -1,8 +1,8 @@
 language: objective-c
 env:
     matrix:
-    - XCODE_SCHEME=TwitterAPITests-iOS XCODE_SDK=iphonesimulator
-    - XCODE_SCHEME=TwitterAPITests-Mac XCODE_SDK=macosx
+    - XCODE_SCHEME="TwitterAPI iOS Tests" XCODE_SDK=iphonesimulator
+    - XCODE_SCHEME="TwitterAPI Mac Tests" XCODE_SDK=macosx
 before_install:
     - brew update
     - brew install carthage
