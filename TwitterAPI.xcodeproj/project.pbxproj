@@ -11,26 +11,26 @@
 		38F2C56A1BB1702F00516144 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; };
 		38F2C56C1BB1730100516144 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 38F2C5691BB1702F00516144 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2431BAC9E4E0095A4F9 /* TwitterAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AAEF2421BAC9E4E0095A4F9 /* TwitterAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6AAEF24A1BAC9E4E0095A4F9 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */; settings = {ASSET_TAGS = (); }; };
+		6AAEF24A1BAC9E4E0095A4F9 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF23F1BAC9E4E0095A4F9 /* TwitterAPI.framework */; };
 		6AAEF24F1BAC9E4E0095A4F9 /* TwitterAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF24E1BAC9E4E0095A4F9 /* TwitterAPITests.swift */; };
-		6AAEF2751BAC9F390095A4F9 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF26B1BAC9F390095A4F9 /* TwitterAPI.framework */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2831BACA00B0095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2851BACA02B0095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2871BACA03B0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF28A1BACA0750095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF28B1BACA0760095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF28C1BACA0760095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF28D1BACA0790095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF28E1BACA0790095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF28F1BACA0790095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2901BACA07C0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2921BACA07D0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF2931BACA07D0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; settings = {ASSET_TAGS = (); }; };
-		6AAEF29E1BACA3F50095A4F9 /* TwitterAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF24E1BAC9E4E0095A4F9 /* TwitterAPITests.swift */; settings = {ASSET_TAGS = (); }; };
+		6AAEF2751BAC9F390095A4F9 /* TwitterAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF26B1BAC9F390095A4F9 /* TwitterAPI.framework */; };
+		6AAEF2831BACA00B0095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; };
+		6AAEF2851BACA02B0095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; };
+		6AAEF2871BACA03B0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; };
+		6AAEF28A1BACA0750095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; };
+		6AAEF28B1BACA0760095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; };
+		6AAEF28C1BACA0760095A4F9 /* TwitterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2821BACA00B0095A4F9 /* TwitterAPI.swift */; };
+		6AAEF28D1BACA0790095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; };
+		6AAEF28E1BACA0790095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; };
+		6AAEF28F1BACA0790095A4F9 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2841BACA02B0095A4F9 /* Client.swift */; };
+		6AAEF2901BACA07C0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; };
+		6AAEF2921BACA07D0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; };
+		6AAEF2931BACA07D0095A4F9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF2861BACA03B0095A4F9 /* Request.swift */; };
+		6AAEF29E1BACA3F50095A4F9 /* TwitterAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAEF24E1BAC9E4E0095A4F9 /* TwitterAPITests.swift */; };
 		6AAEF2A91BACAB700095A4F9 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; };
-		6AAEF2AA1BACAB780095A4F9 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; settings = {ASSET_TAGS = (); }; };
+		6AAEF2AA1BACAB780095A4F9 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; };
 		6AAEF2AB1BACAB820095A4F9 /* OAuthSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2A81BACAB700095A4F9 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6AAEF2B31BACAF2C0095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ASSET_TAGS = (); }; };
+		6AAEF2B31BACAF2C0095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; };
 		6AAEF2BB1BACB3E20095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2B01BACAEC00095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6AAEF2BE1BACB4280095A4F9 /* MutableDataScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */; };
 		6AAEF2BF1BACB43C0095A4F9 /* MutableDataScanner.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6AAEF2BD1BACB4280095A4F9 /* MutableDataScanner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -237,6 +237,7 @@
 				6AAEF23C1BAC9E4E0095A4F9 /* Headers */,
 				6AAEF23D1BAC9E4E0095A4F9 /* Resources */,
 				6AAEF2A21BACA8E50095A4F9 /* CopyFiles */,
+				389F37D31CA3D3840044A424 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -379,6 +380,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		389F37D31CA3D3840044A424 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6AAEF23A1BAC9E4E0095A4F9 /* Sources */ = {

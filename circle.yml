@@ -3,8 +3,16 @@ machine:
     version: "7.0"
 dependencies:
   override:
-    - brew install carthage:
-        timeout: 300
+    - brew update || brew update
+    - brew uninstall xctool && brew install --HEAD xctool
+    - >
+      which carthage;
+      if [ $? -eq "0" ]; then
+        brew outdated carthage || brew upgrade carthage
+      else
+        brew install carthage
+      fi
+    - carthage version
     - carthage bootstrap --verbose:
         timeout: 300
 test:

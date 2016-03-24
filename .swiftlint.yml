@@ -1,0 +1,4 @@
+included:
+- TwitterAPI
+disabled_rules:
+- line_length
