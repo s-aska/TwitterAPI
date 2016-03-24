@@ -5,6 +5,7 @@ env:
     - XCODE_SCHEME="TwitterAPI Mac Tests" XCODE_SDK=macosx
 before_install:
     - brew update
+    - brew uninstall xctool && brew install --HEAD xctool
     - brew install carthage
     - carthage bootstrap --verbose
 script: xctool -project TwitterAPI.xcodeproj -scheme "$XCODE_SCHEME" -sdk $XCODE_SDK -configuration Release build test
