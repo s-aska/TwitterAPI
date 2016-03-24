@@ -218,7 +218,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ## Requirements
 
 - iOS 9.0+ / Mac OS X 10.10+
-- Swift 2.0 and Xcode 7
+- Swift 2.2 and Xcode 7.3
 
 
 ## Installation
