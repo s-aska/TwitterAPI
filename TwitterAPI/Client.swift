@@ -88,7 +88,8 @@ public extension Client {
     - returns: StreamingRequest
     */
     public func streaming(url: String, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
-        return StreamingRequest(makeRequest(.GET, url: url, parameters: parameters))
+        let method: Method = url == "https://stream.twitter.com/1.1/statuses/filter.json" ? .POST : .GET
+        return StreamingRequest(makeRequest(method, url: url, parameters: parameters))
     }
 
     /**
