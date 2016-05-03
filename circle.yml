@@ -17,5 +17,5 @@ dependencies:
         timeout: 300
 test:
   override:
-    - case $CIRCLE_NODE_INDEX in 0) xctool -project TwitterAPI.xcodeproj -scheme TwitterAPITests-iOS -sdk iphonesimulator -configuration Release build test ;; 1) xctool -project TwitterAPI.xcodeproj -scheme TwitterAPITests-Mac -sdk macosx -configuration Release build test ;; esac:
+    - case $CIRCLE_NODE_INDEX in 0) xctool -project TwitterAPI.xcodeproj -scheme "TwitterAPI iOS" -sdk iphonesimulator -configuration Release build test ;; 1) xctool -project TwitterAPI.xcodeproj -scheme "TwitterAPI Mac" -sdk macosx -configuration Release build test ;; esac:
         parallel: true
