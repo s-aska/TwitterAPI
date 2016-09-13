@@ -30,7 +30,7 @@ public protocol Client {
 
     - returns: NSURLRequest
     */
-    func makeRequest(method: Method, url: String, parameters: Dictionary<String, String>) -> NSURLRequest
+    func makeRequest(_ method: Method, url: String, parameters: Dictionary<String, String>) -> URLRequest
 
     /**
     It be to storable the Client object
@@ -60,7 +60,7 @@ public class ClientDeserializer {
 
     - returns: Client
     */
-    public class func deserialize(string: String) -> Client {
+    public class func deserialize(_ string: String) -> Client {
         #if os(iOS)
             switch string {
             case let string where string.hasPrefix(OAuthClient.serializeIdentifier):
@@ -87,7 +87,7 @@ public extension Client {
 
     - returns: StreamingRequest
     */
-    public func streaming(url: String, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
+    public func streaming(_ url: String, parameters: Dictionary<String, String> = [:]) -> StreamingRequest {
         let method: Method = url == "https://stream.twitter.com/1.1/statuses/filter.json" ? .POST : .GET
         return StreamingRequest(makeRequest(method, url: url, parameters: parameters))
     }
@@ -100,7 +100,7 @@ public extension Client {
 
     - returns: RESTRequest
     */
-    public func get(url: String, parameters: Dictionary<String, String> = [:]) -> Request {
+    public func get(_ url: String, parameters: Dictionary<String, String> = [:]) -> Request {
         return request(.GET, url: url, parameters: parameters)
     }
 
@@ -112,7 +112,7 @@ public extension Client {
 
     - returns: RESTRequest
     */
-    public func post(url: String, parameters: Dictionary<String, String> = [:]) -> Request {
+    public func post(_ url: String, parameters: Dictionary<String, String> = [:]) -> Request {
         return request(.POST, url: url, parameters: parameters)
     }
 
@@ -129,8 +129,8 @@ public extension Client {
 
     - returns: RESTRequest
     */
-    public func postMedia(data: NSData) -> Request {
-        let media = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+    public func postMedia(_ data: Data) -> Request {
+        let media = data.base64EncodedString(options: Data.Base64EncodingOptions(rawValue: 0))
         let url = "https://upload.twitter.com/1.1/media/upload.json"
         return post(url, parameters: ["media": media])
     }
@@ -144,7 +144,7 @@ public extension Client {
 
     - returns: RESTRequest
     */
-    public func request(method: Method, url: String, parameters: Dictionary<String, String>) -> Request {
+    public func request(_ method: Method, url: String, parameters: Dictionary<String, String>) -> Request {
         return Request(self, request: makeRequest(method, url: url, parameters: parameters))
     }
 }
@@ -152,20 +152,20 @@ public extension Client {
 /**
 Client to have the authentication information of OAuth
 */
-public class OAuthClient: Client {
+open class OAuthClient: Client {
 
     static var serializeIdentifier = "OAuth"
 
     /// Twitter Consumer Key (API Key)
-    public let consumerKey: String
+    open let consumerKey: String
 
     /// Twitter Consumer Secret (API Secret)
-    public let consumerSecret: String
+    open let consumerSecret: String
 
     /// Twitter Credential (AccessToken)
-    public let oAuthCredential: OAuthSwiftCredential
+    open let oAuthCredential: OAuthSwiftCredential
 
-    public var debugDescription: String {
+    open var debugDescription: String {
         return "[consumerKey: \(consumerKey), consumerSecret: \(consumerSecret), accessToken: \(oAuthCredential.oauth_token), accessTokenSecret: \(oAuthCredential.oauth_token_secret)]"
     }
 
@@ -189,7 +189,7 @@ public class OAuthClient: Client {
     }
 
     convenience init(serializedString string: String) {
-        let parts = string.componentsSeparatedByString("\t")
+        let parts = string.components(separatedBy: "\t")
         self.init(consumerKey: parts[1], consumerSecret: parts[2], accessToken: parts[3], accessTokenSecret: parts[4])
     }
 
@@ -204,8 +204,8 @@ public class OAuthClient: Client {
 
     - returns: String
     */
-    public var serialize: String {
-        return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joinWithSeparator("\t")
+    open var serialize: String {
+        return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joined(separator: "\t")
     }
 
     /**
@@ -217,15 +217,15 @@ public class OAuthClient: Client {
 
     - returns: NSURLRequest
     */
-    public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
-        let url = NSURL(string: urlString)!
+    open func makeRequest(_ method: Method, url urlString: String, parameters: Dictionary<String, String>) -> URLRequest {
+        let url = URL(string: urlString)!
         let authorization = oAuthCredential.authorizationHeaderForMethod(method.oAuthSwiftValue, url: url, parameters: parameters)
         let headers = ["Authorization": authorization]
 
-        let request: NSURLRequest
+        let request: URLRequest
         do {
             request = try OAuthSwiftHTTPRequest.makeRequest(
-                url, method: method.oAuthSwiftValue, headers: headers, parameters: parameters, dataEncoding: NSUTF8StringEncoding)
+                url, method: method.oAuthSwiftValue, headers: headers, parameters: parameters, dataEncoding: String.Encoding.utf8) as URLRequest
         } catch let error as NSError {
             fatalError("TwitterAPIOAuthClient#request invalid request error:\(error.description)")
         } catch {
@@ -240,27 +240,27 @@ public class OAuthClient: Client {
     /**
     Client to have the authentication information of ACAccount
     */
-    public class AccountClient: Client {
+    open class AccountClient: Client {
 
         static var serializeIdentifier = "Account"
 
-        public let identifier: String
+        open let identifier: String
 
         /// ACAccount
-        public var account: ACAccount {
+        open var account: ACAccount {
             get {
                 if let ac = accountCache {
                     return ac
                 } else {
-                    let ac = ACAccountStore().accountWithIdentifier(identifier)
+                    let ac = ACAccountStore().account(withIdentifier: identifier)
                     accountCache = ac
-                    return ac
+                    return ac!
                 }
             }
         }
-        private var accountCache: ACAccount?
+        fileprivate var accountCache: ACAccount?
 
-        public var debugDescription: String {
+        open var debugDescription: String {
             return "[identifier: \(identifier), cache: " + (accountCache != nil ? "exists" : "nil") + "]"
         }
 
@@ -271,11 +271,11 @@ public class OAuthClient: Client {
         */
         public init(account: ACAccount) {
             self.accountCache = account
-            self.identifier = account.identifier!
+            self.identifier = account.identifier! as String
         }
 
         init(serializedString string: String) {
-            let parts = string.componentsSeparatedByString("\t")
+            let parts = string.components(separatedBy: "\t")
             self.identifier = parts[1]
         }
 
@@ -290,8 +290,8 @@ public class OAuthClient: Client {
 
         - returns: String
         */
-        public var serialize: String {
-            return [AccountClient.serializeIdentifier, account.identifier!].joinWithSeparator("\t")
+        open var serialize: String {
+            return AccountClient.serializeIdentifier + "\t" + (account.identifier! as String)
         }
 
         /**
@@ -303,11 +303,11 @@ public class OAuthClient: Client {
 
         - returns: NSURLRequest
         */
-        public func makeRequest(method: Method, url urlString: String, parameters: Dictionary<String, String>) -> NSURLRequest {
-            let url = NSURL(string: urlString)!
-            let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: method.slValue, URL: url, parameters: parameters)
-            socialRequest.account = account
-            return socialRequest.preparedURLRequest()
+        open func makeRequest(_ method: Method, url urlString: String, parameters: Dictionary<String, String>) -> URLRequest {
+            let url = URL(string: urlString)!
+            let socialRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: method.slValue, url: url as URL!, parameters: parameters)
+            socialRequest?.account = account
+            return socialRequest!.preparedURLRequest()
         }
     }
 #endif
