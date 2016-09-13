@@ -17,19 +17,19 @@ REST API Request
 let request = client.get("https://api.twitter.com/1.1/statuses/home_timeline.json")
 ```
 */
-public class Request {
+open class Request {
 
     /// Original Client
-    public let originalClient: Client
+    open let originalClient: Client
 
     /// Original Request
-    public let originalRequest: NSURLRequest
+    open let originalRequest: URLRequest
 
     /// REST API Request Task
-    public let task: NSURLSessionDataTask
+    open let task: URLSessionDataTask
 
     /// REST API Request Task's Delegate
-    public let delegate: TaskDelegate
+    open let delegate: TaskDelegate
 
     /**
     Create a Request Instance
@@ -39,12 +39,12 @@ public class Request {
     - parameter configuration: NSURLSessionConfiguration
     - parameter queue: NSOperationQueue
     */
-    init(_ client: Client, request: NSURLRequest, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), queue: NSOperationQueue? = nil) {
+    init(_ client: Client, request: URLRequest, configuration: URLSessionConfiguration = URLSessionConfiguration.default, queue: OperationQueue? = nil) {
         originalClient = client
         originalRequest = request
         delegate = TaskDelegate()
-        let session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
-        task = session.dataTaskWithRequest(originalRequest)
+        let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
+        task = session.dataTask(with: originalRequest)
     }
 
     /**
@@ -52,7 +52,7 @@ public class Request {
 
     - parameter completion: CompletionHandler
     */
-    public func response(completion: CompletionHandler) {
+    open func response(_ completion: @escaping CompletionHandler) {
         delegate.completion = completion
     }
 
@@ -63,32 +63,32 @@ public class Request {
 
 // MARK: - TaskDelegate
 
-public class TaskDelegate: NSObject, NSURLSessionDataDelegate {
+open class TaskDelegate: NSObject, URLSessionDataDelegate {
 
     /// API Response Data
-    private var mutableData = NSMutableData()
+    fileprivate var mutableData = NSMutableData()
 
     /// API Access Completion Hander
-    private var completion: CompletionHandler?
+    fileprivate var completion: CompletionHandler?
 
     /// API Response
-    public var response: NSHTTPURLResponse!
+    open var response: HTTPURLResponse!
 
-    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        mutableData.appendData(data)
+    open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        mutableData.append(data)
     }
 
-    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        guard let response = response as? NSHTTPURLResponse else {
+    @nonobjc open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Void) {
+        guard let response = response as? HTTPURLResponse else {
             fatalError("NSHTTPURLResponse")
         }
         self.response = response
-        completionHandler(.Allow)
+        completionHandler(.allow)
     }
 
-    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.completion?(responseData: self.mutableData, response: self.response, error: error)
+    open func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        DispatchQueue.main.async(execute: {
+            self.completion?(self.mutableData as Data, self.response, error as NSError?)
         })
     }
 }
@@ -103,19 +103,19 @@ Streaming API Request
 let request = client.streaming("https://userstream.twitter.com/1.1/user.json")
 ```
 */
-public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
+open class StreamingRequest: NSObject, URLSessionDataDelegate {
 
     /// Streaming API Session
-    public var session: NSURLSession?
+    open var session: URLSession?
 
     /// Streaming API Task
-    public var task: NSURLSessionDataTask?
+    open var task: URLSessionDataTask?
 
     /// Original Request
-    public let originalRequest: NSURLRequest
+    open let originalRequest: URLRequest
 
     /// Streaming API Delegate
-    public let delegate: StreamingDelegate
+    open let delegate: StreamingDelegate
 
     /**
     Create a StreamingRequest Instance
@@ -124,11 +124,11 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
      - parameter configuration: NSURLSessionConfiguration?
      - parameter queue: NSOperationQueue?
     */
-    public init(_ request: NSURLRequest, configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), queue: NSOperationQueue? = nil) {
+    public init(_ request: URLRequest, configuration: URLSessionConfiguration = URLSessionConfiguration.default, queue: OperationQueue? = nil) {
         originalRequest = request
         delegate = StreamingDelegate()
-        session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
-        task = session?.dataTaskWithRequest(request)
+        session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: queue)
+        task = session?.dataTask(with: request)
     }
 
     /**
@@ -136,7 +136,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
 
     - returns: self
     */
-    public func start() -> StreamingRequest {
+    open func start() -> StreamingRequest {
         task?.resume()
         return self
     }
@@ -146,7 +146,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
 
      - returns: self
     */
-    public func stop() -> StreamingRequest {
+    open func stop() -> StreamingRequest {
         task?.cancel()
         return self
     }
@@ -162,7 +162,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
 
     - returns: self
     */
-    public func progress(progress: ProgressHandler) -> StreamingRequest {
+    open func progress(_ progress: @escaping ProgressHandler) -> StreamingRequest {
         delegate.progress = progress
         return self
     }
@@ -179,7 +179,7 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
 
     - returns: self
     */
-    public func completion(completion: CompletionHandler) -> StreamingRequest {
+    open func completion(_ completion: @escaping CompletionHandler) -> StreamingRequest {
         delegate.completion = completion
         return self
     }
@@ -190,59 +190,59 @@ public class StreamingRequest: NSObject, NSURLSessionDataDelegate {
 /**
 Streaming API Delegate
 */
-public class StreamingDelegate: NSObject, NSURLSessionDataDelegate {
+open class StreamingDelegate: NSObject, URLSessionDataDelegate {
 
-    private let serial = dispatch_queue_create("pw.aska.TwitterAPI.TwitterStreamingRequest", DISPATCH_QUEUE_SERIAL)
+    fileprivate let serial = DispatchQueue(label: "pw.aska.TwitterAPI.TwitterStreamingRequest", attributes: [])
 
     /// Streaming API Response
-    public var response: NSHTTPURLResponse!
+    open var response: HTTPURLResponse!
 
     /// Streaming API Response data buffer
-    public let scanner = MutableDataScanner(delimiter: "\r\n")
+    open let scanner = MutableDataScanner(delimiter: "\r\n")
 
     /// Streaming API Received JSON Hander
-    private var progress: ProgressHandler?
+    fileprivate var progress: ProgressHandler?
 
     /// Streaming API Disconnect Hander
-    private var completion: CompletionHandler?
+    fileprivate var completion: CompletionHandler?
 
-    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        dispatch_sync(serial) {
-            self.scanner.appendData(data)
+    open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        serial.sync {
+            self.scanner.append(data)
             while let data = self.scanner.next() {
-                if data.length > 0 {
-                    self.progress?(data: data)
+                if data.count > 0 {
+                    self.progress?(data)
                 }
             }
         }
     }
 
-    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
-        guard let httpURLResponse = response as? NSHTTPURLResponse else {
+    @nonobjc open func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive response: URLResponse, completionHandler: (URLSession.ResponseDisposition) -> Void) {
+        guard let httpURLResponse = response as? HTTPURLResponse else {
             fatalError("didReceiveResponse is not NSHTTPURLResponse")
         }
         self.response = httpURLResponse
 
         if httpURLResponse.statusCode == 200 {
-            completionHandler(.Allow)
+            completionHandler(.allow)
         } else {
-            dispatch_async(dispatch_get_main_queue(), {
-                self.completion?(responseData: self.scanner.data, response: httpURLResponse, error: nil)
+            DispatchQueue.main.async(execute: {
+                self.completion?(self.scanner.data, httpURLResponse, nil)
             })
         }
     }
 
-    public func URLSession(session: NSURLSession, didReceiveChallenge challenge: NSURLAuthenticationChallenge, completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
+    @nonobjc open func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: (Foundation.URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
             completionHandler(
-                NSURLSessionAuthChallengeDisposition.UseCredential,
-                NSURLCredential(forTrust: challenge.protectionSpace.serverTrust!))
+                Foundation.URLSession.AuthChallengeDisposition.useCredential,
+                URLCredential(trust: challenge.protectionSpace.serverTrust!))
         }
     }
 
-    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        dispatch_async(dispatch_get_main_queue(), {
-            self.completion?(responseData: self.scanner.data, response: self.response, error: error)
+    open func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        DispatchQueue.main.async(execute: {
+            self.completion?(self.scanner.data, self.response, error as NSError?)
         })
     }
 }

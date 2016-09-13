@@ -43,5 +43,5 @@ public enum Method: String {
     }
 }
 
-public typealias ProgressHandler = (data: NSData) -> Void
-public typealias CompletionHandler = (responseData: NSData?, response: NSHTTPURLResponse?, error: NSError?) -> Void
+public typealias ProgressHandler = (_ data: Data) -> Void
+public typealias CompletionHandler = (_ responseData: Data?, _ response: HTTPURLResponse?, _ error: NSError?) -> Void
