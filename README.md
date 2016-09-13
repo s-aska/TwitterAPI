@@ -2,7 +2,7 @@
 
 [![Build Status](https://www.bitrise.io/app/b4ece76000399048.svg?token=3fi0raeSSGrPVhXLDXNk2w&branch=master)](https://www.bitrise.io/app/b4ece76000399048)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![](https://img.shields.io/badge/Xcode-7.3%2B-brightgreen.svg?style=flat)]()
+[![](https://img.shields.io/badge/Xcode-8%2B-brightgreen.svg?style=flat)]()
 [![](https://img.shields.io/badge/iOS-9.0%2B-brightgreen.svg?style=flat)]()
 [![](https://img.shields.io/badge/OS%20X-10.10%2B-brightgreen.svg?style=flat)]()
 
@@ -218,7 +218,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ## Requirements
 
 - iOS 9.0+ / Mac OS X 10.10+
-- Swift 2.2 and Xcode 7.3
+- Swift 2.2 and Xcode 8
 
 
 ## Installation
