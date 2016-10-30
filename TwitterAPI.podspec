@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "TwitterAPI"
-  s.version          = "0.1.1"
+  s.version          = "0.1.2"
   s.summary          = "This Twitter framework is to both support the OAuth and Social.framework, can handle REST and Streaming API."
   s.description      = <<-DESC
                          Features
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.10"
   s.requires_arc = true
 
-  s.dependency 'OAuthSwift'
+  s.dependency 'OAuthSwift', '= 1.0.0'
   s.dependency 'MutableDataScanner'
 
   s.source_files = 'TwitterAPI/*.swift'
