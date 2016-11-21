@@ -166,7 +166,7 @@ open class OAuthClient: Client {
     open let oAuthCredential: OAuthSwiftCredential
 
     open var debugDescription: String {
-        return "[consumerKey: \(consumerKey), consumerSecret: \(consumerSecret), accessToken: \(oAuthCredential.oauth_token), accessTokenSecret: \(oAuthCredential.oauth_token_secret)]"
+        return "[consumerKey: \(consumerKey), consumerSecret: \(consumerSecret), accessToken: \(oAuthCredential.oauthToken), accessTokenSecret: \(oAuthCredential.oauthTokenSecret)]"
     }
 
     /**
@@ -182,9 +182,9 @@ open class OAuthClient: Client {
     public init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {
         self.consumerKey = consumerKey
         self.consumerSecret = consumerSecret
-        let credential = OAuthSwiftCredential(consumer_key: consumerKey, consumer_secret: consumerSecret)
-        credential.oauth_token = accessToken
-        credential.oauth_token_secret = accessTokenSecret
+        let credential = OAuthSwiftCredential(consumerKey: consumerKey, consumerSecret: consumerSecret)
+        credential.oauthToken = accessToken
+        credential.oauthTokenSecret = accessTokenSecret
         self.oAuthCredential = credential
     }
 
@@ -205,7 +205,7 @@ open class OAuthClient: Client {
     - returns: String
     */
     open var serialize: String {
-        return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauth_token, oAuthCredential.oauth_token_secret].joined(separator: "\t")
+        return [OAuthClient.serializeIdentifier, consumerKey, consumerSecret, oAuthCredential.oauthToken, oAuthCredential.oauthTokenSecret].joined(separator: "\t")
     }
 
     /**
@@ -219,12 +219,12 @@ open class OAuthClient: Client {
     */
     open func makeRequest(_ method: Method, url urlString: String, parameters: Dictionary<String, String>) -> URLRequest {
         let url = URL(string: urlString)!
-        let authorization = oAuthCredential.authorizationHeaderForMethod(method.oAuthSwiftValue, url: url, parameters: parameters)
+        let authorization = oAuthCredential.authorizationHeader(method: method.oAuthSwiftValue, url: url, parameters: parameters)
         let headers = ["Authorization": authorization]
 
         let request: URLRequest
         do {
-            request = try OAuthSwiftHTTPRequest.makeRequest(
+            request = try OAuthSwiftHTTPRequest.makeRequest(url:
                 url, method: method.oAuthSwiftValue, headers: headers, parameters: parameters, dataEncoding: String.Encoding.utf8) as URLRequest
         } catch let error as NSError {
             fatalError("TwitterAPIOAuthClient#request invalid request error:\(error.description)")
