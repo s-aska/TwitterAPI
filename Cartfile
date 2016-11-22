@@ -1,2 +1,2 @@
-github "s-aska/MutableDataScanner" "d5d64b857efcee35e4652f83a22ae8bacdcecf4c"
+github "s-aska/MutableDataScanner"
 github "OAuthSwift/OAuthSwift" == 1.0.0
